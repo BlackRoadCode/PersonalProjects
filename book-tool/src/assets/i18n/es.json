@@ -1,0 +1,116 @@
+{
+    "publicNavbar":{
+        "about":"Nosotros",
+        "features":"Características",
+        "pricing":"Precios",
+        "contact":"Contacto",
+        "login":"Ingresar",
+        "register":"Registrarse",
+        "logout":"Cerrar Sesión",
+        "comments":"Comentarios",
+        "account":"Mi Cuenta" 
+    },
+    "home":{
+        "carousel":{
+            "first":{
+                "title":"Título Primer Slide",
+                "paragraph":"Primer párrafo del carrusel."
+            },
+            "second":{
+                "title":"Título Segundo Slide",
+                "paragraph":"Segundo párrafo del carrusel."
+            },
+            "third":{
+                "title":"Título Tercer Slide",
+                "paragraph":"Tercer párrafo del carrusel."
+            }
+        },
+        "features":{
+            "title":"¿Qué es <strong>Book</strong>Process?",
+            "paragraphA":"Inicio del párrafo en español consectetur adipisicing elit. Tempore eaque architecto accusantium impedit dolores. Modi, natus corrupti, sapiente dicta veritatis porro non aliquam, laudantium ex repellat consequatur minima? Numquam, ipsum.",
+            "characteristics":{
+                "first":"Característica esp 1",
+                "second":"Característica esp 2",
+                "third":"Característica esp 3",
+                "quarter":"Característica esp 4",
+                "fifth":"Característica esp 5",
+                "sixth":"Característica esp 6",
+                "seventh":"Característica esp 7",
+                "eigth":"Característica esp 8"
+            }
+        },
+        "detailedFeatures":{
+            "tab1":{
+                "title":"Personajes",
+                "paragraph":"Mantén una hoja de personaje por cada uno de los que tengas, mantén el lore de tu historia como un universo aparte."
+            },
+            "tab2":{
+                "title":"Línea de Timepo",
+                "paragraph":"No pierdas el rastro de tus fechas o nudos importantes, olvídate de las fallas de origen y cuenta con una línea de tiempo como apoyo."
+            },
+            "tab3":{
+                "title":"Notas e Inspiración",
+                "paragraph":"Mantén a la mano todas las notas e inspiraciones que te lleguen a la mente, complementa tu obra co fechas, datos y hechos relevantes que luego puedes integrar según te convenga."
+            },
+            "tab4":{
+                "title":"Y mucho más...",
+                "paragraph":"Todo lo que necesitas para crear una obra robusta, la próxima gran historia está en tu mente."
+            }
+        },
+        "resources":{
+            "button":"Recursos para Escritores"
+        },
+        "ready":{
+            "title":"¿Listo para comenzar?",
+            "button":"¡Crea tu cuenta!"
+        }
+    },
+    "features":{},
+    "pricing":{
+        "firstRow":{
+            "title":"Precios",
+            "subtitle":"Una herramienta al alcance de todos",
+            "paragraph":"Empieza en español ipsum dolor sit amet consectetur adipisicing elit. Nam aperiam odio natus maxime mollitia? Aspernatur commodi sapiente, in voluptas temporibus amet saepe beatae quibusdam, voluptates explicabo culpa reiciendis suscipit provident"
+        },
+        "pricesTable":{
+            "plans":{
+                "month":"Mensual",
+                "biannual":"Semestral",
+                "annual":"Anual"
+            },
+            "title":"¿Listo para empezar a crear tu mejor obra?",
+            "card":{
+                "first":{
+                    "title":"Planes Disponibles",
+                    "text":"<table class='table'><tbody><tr><th scope='row'>Obra</th></tr><tr><th scope='row'>Personajes</th></tr><tr><th scope='row'>Notas</th></tr><tr><th scope='row'>Fuentes</th></tr><tr><th scope='row'>Lista tareas</th></tr><tr><th scope='row'>Inspiración</th></tr><tr><th scope='row'>Línea de tiempo</th></tr><tr><th scope='row'>soporte premium</th></tr><tr><th scope='row'>Sugerencias prioritarias</th></tr><tr><th scope='row'>Exportar Obra</th></tr><tr><th scope='row'>Exportar Personaje</th></tr><tr><th scope='row'>Exportar Línea de tiempo</th></tr><tr><th scope='row'>Eliminar Obra</th></tr><tr><th scope='row'>Mantenimiento de cuenta*</th></tr></tbody></table>",
+                    "footer":"Gratis por siempre."
+                },
+                "second":{
+                    "title":"Plan Bronze",
+                    "text":"<table class='table'><tbody><tr><td>2</td></tr><tr><td>6</td></tr><tr><td>30</td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td>5</td></tr><tr><td>30</td></tr><tr><td>3</td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr></tbody></table>",
+                    "footer":"Solo $30MXN por mes"
+                },
+                "third":{
+                    "title":"Plan Silver",
+                    "text":"<table class='table'><tbody><tr><td>5</td></tr><tr><td>20</td></tr><tr><td>100</td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td>10</td></tr><tr><td>100</td></tr><tr><td>10</td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-x-circle text-danger'></i></td></tr></tbody></table>",
+                    "footer":"Solo $45MXN por mes"
+                },
+                "fourth":{
+                    "title":"Plan Gold",
+                    "text":"<table class='table'><tbody><tr><td>20</td></tr><tr><td>Ilimitado</td></tr><tr><td>Ilimitado</td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td>Ilimitado</td></tr><tr><td>Ilimitado</td></tr><tr><td>Ilimitado</td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr><tr><td><i class='bi bi-check-circle text-success'></i></td></tr></tbody></table>",
+                    "footer":"Solo $99 por mes"
+                }
+            }
+        },
+        "expText":"Texto explicativo de los precios y las ventajas de pasar a un plan de pago"
+    },
+    "privateNavbar":{},
+    "blog":{},
+    "login":{},
+    "register":{},
+    "preFooter":{},
+    "footer":{ },
+    "dashboard":{}
+
+
+}

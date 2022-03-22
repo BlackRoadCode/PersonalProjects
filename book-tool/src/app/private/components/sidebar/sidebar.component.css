@@ -1,0 +1,53 @@
+.dropdown-divider{
+    height: 2px;
+    /* color: rgb(153,153,153); */
+    background: linear-gradient(90deg, rgba(153,153,153,1) 57%, rgba(255,255,255,1) 83%);
+}
+
+/* 
+.navbar{
+    width: 250px;
+    height: 100vh;
+    position:absolute;
+    margin-left: -300px;
+    background-color: black;
+    transition: 0.4s;
+}
+
+.nav-link{
+    font-size: 1.25em;
+}
+
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover{
+    background-color: gray;
+}
+
+.dropdown-menu{
+    background-color: gray;
+}
+
+.dropdown-item:active,
+.dropdown-item:focus,
+.dropdown-item:hover{
+    background-color: honeydew;
+}
+
+.my-container{
+    transition: .04s;
+}
+
+.active-nav{
+    margin-left: 0;
+}
+
+.active-cont{
+    margin-left: 250px;
+}
+
+nav{
+    background-color: black;
+}
+ */
+

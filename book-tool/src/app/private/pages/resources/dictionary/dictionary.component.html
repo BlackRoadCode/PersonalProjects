@@ -1,0 +1,47 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    
+    <div class="row mt-5">
+
+        <div class="mb-3 animate__animated animate__fadeIn">
+            <div class="">
+                <h1>Diccionario</h1>
+                <p class="text-muted">¿Sabías que el 89% del tiempo considerado no productivo es provocado por el diseño distractor de internet? Te brindamos un completísimo diccionario para que tengas todo a la mano, no te distraigas y cumplas tu objetivo.</p>
+            </div>
+        </div>
+
+        <div *ngIf="this.term.description !== ''" class="mb-3 animate__animated animate__fadeIn">
+            <div class="card-body">
+                <div  class="row" [formGroup]="dictionaryForm">
+
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 d-grid gap-2 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+                        <div class="input-group">
+                            <div class="input-group-text rounded-0">Término</div>
+                            <input type="text" class="form-control rounded-0" placeholder="Ingresa el término a buscar" formControlName="termToSearch">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                        <button (click)="searchTerm()" class="btn bg-orange text-white rounded-0">Buscar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div *ngIf="termToSearch" class="card mb-3 px-0 animate__animated animate__fadeIn">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 d-grid gap-2 py-1 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+                        <h2>{{this.term.word}}</h2>
+                        <p>{{ this.term.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-end text-dark">
+                <a class="pe-3 text-decoration-none text-orange" [routerLink]="['/private', 'dashboard', 'resources', 'dictionary', 'pabbreviation']">Ver las abreviaturas usadas aquí ></a>
+            </div>
+        </div>
+        
+    </div>
+</div>

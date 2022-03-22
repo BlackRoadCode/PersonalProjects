@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-3 mb-3">
+    <div class="row g-4">
+
+        <div class="col">
+            <h1 class="text-center pt-5 pb-3">Contáctanos</h1>
+
+            <div class="text-center py-4">
+                <img class="px-0" src="assets/img/about/line.jpg" alt="">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid bg-contact-img pb-7">
+    <div class="row g-4">
+
+        <div class="offset-lg-4 offset-md-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body shadow">
+                    <div [formGroup]="publicContactForm"> 
+                        <div class="mb-3 text-center">
+                            <label for="exampleFormControlInput1" class="form-label pt-3 pb-2">Nombre</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="publicContactName">
+
+                            <label for="exampleFormControlInput1" class="form-label pt-3 pb-2">Correo electrónico</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="publicContactEmail">
+                            <div class="text-start">
+                                <small class="text-orange">Este campo es obligatorio</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <label for="exampleFormControlTextarea1" class="form-label pt-3 pb-2">Tu consulta</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" formControlName="publicContactText"></textarea>
+                            <div class="text-start">
+                                <small class="text-orange">Este campo es obligatorio</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-center pt-7 pb-4">
+                            <button (click)="savePublicContact()" class="btn bg-orange text-white rounded-0 px-5">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<app-prefooter></app-prefooter>
+
+<app-footer></app-footer>

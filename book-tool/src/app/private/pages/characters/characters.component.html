@@ -1,0 +1,96 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="mt-5 mb-3 animate__animated animate__fadeIn">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mt-4">
+                    <h3>Personajes</h3>
+                    <h3><small class="text-secondary">Crea y administra tus fichas de personajes.</small></h3>
+                    <hr class="hr-elements bg-secondary mt-0">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-lg-end text-md-end text-center my-3 m-md-0">
+                    <div class="">
+                        <button *ngIf="numberCharactersCreated < numCharacters" routerLink="new" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Nuevo Personaje <i class="bi bi-plus"></i></button>
+                        <button *ngIf="numCharacters === numberCharactersCreated || numCharacters < numberCharactersCreated" (click)="getPremium()" class="btn btn-primary"><i class="bi bi-lock"></i> Nuevo Personaje <i class="bi bi-plus"></i></button>
+
+                        <button (click)="setCharacterView('c');" class="btn btn-outline-info me-2"><i class="bi bi-grid"></i></button>
+                        <button (click)="setCharacterView('l');" class="btn btn-outline-info"><i class="bi bi-list"></i></button>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="fs-5">Los personajes son uno de los elementos principales de cualquier obra. Ellos pueden hacer de una buena historia: <strong>una historia extraordinaria</strong>.</p>
+                </div>
+            </div>
+    </div>
+    
+    <div *ngIf="msgPremiumAccount" class="alert alert-success" role="alert">
+        Tu periodo premium ha terminado pero no te preocupes <strong>ninguno de tus datos ha sido borrado*</strong>, puedes renovar en un plan más económico para tener acceso a las características propias del plan. también puedes <a [routerLink]="['/private', 'dashboard', 'contact']" class="alert-link">contactarnos</a> para revisar tus necesidades de forma personalizada.
+        <br><small class="text-muted">*Tus datos se almacenan durante 3 meses, si no renuevas tu plan o tu cuenta no tiene actividad serán eliminados.</small>
+    </div>
+    
+    <!-- View Card -->
+    <div *ngIf="viewCard && numberCharactersCreated !== 0" class="mb-3 animate__animated animate__fadeIn">
+    
+            <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-12 row-cols-xs-12 g-3">
+    
+                <div class="col" *ngFor="let character of characters; index as i" >
+                    <div class="card text-center h-100 rounded-0 bg-light-gray shadow-sm">
+                    <!-- <div *ngIf="character.cid !== 'counter'" class="card p-3 h-100"> -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img width="200px" height="auto" *ngIf="character.characterImage !== ''" class="rounded p-3 mx-auto d-block img-fluid" [src]="character.characterImage" alt="...">
+                                <img width="200px" height="auto" *ngIf="character.characterImage === ''" class="rounded p-3 mx-auto d-block img-fluid" src="assets/img/generals/no-avatar.png" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ character.physicalAspects.name }}</h5>
+                                    <p class="card-text">{{ character.physicalAspects.briefDescription | slice:0:150  }}...</p>
+                                    <div class="row">
+                                        <div class="col text-end">
+                                            <button [routerLink]="[ 'see', character.cid ]" class="mx-1 btn btn-outline-info"><i class="bi bi-eye"></i> </button>
+                                            <button [routerLink]="[ character.cid ]" class="mx-1 btn btn-outline-info"><i class="bi bi-pencil"></i></button>
+                                            <button (click)="deleteCharacter(character)" class="mx-1 btn bg-orange text-white"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+
+    </div>
+    
+    <!-- View List -->
+    <div *ngIf="viewList && numberCharactersCreated > 0" class="card mb-3 animate__animated animate__fadeIn">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Ver hoja de personaje</th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                      </tr> 
+                </thead>
+                <tbody>
+                    <tr *ngFor="let character of characters; index as i">
+                        <td *ngIf="character.characterImage !== ''"><img style="width: 40px;" class="rounded d-block img-fluid" [src]="character.characterImage" alt="..."></td>
+                        <td *ngIf="character.characterImage === ''"><img style="width: 40px;" class="rounded d-block img-fluid" src="assets/img/generals/no-avatar.png" alt="..."></td>
+                        <td class="align-middle">{{ character.physicalAspects.name }}</td>
+                        <td class="align-middle"><button class="btn btn-sm bg-bp-green text-white rounded-0"><i class="bi bi-eye"></i></button></td>
+                        <td class="align-middle"><button [routerLink]="[ character.cid ]" class="btn btn-sm bg-bp-green text-white rounded-0"><i class="bi bi-pencil"></i></button></td>
+                        <td class="align-middle"><button (click)="deleteCharacter(character)" class="btn btn-sm text-white btn-danger rounded-0"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div *ngIf="numberCharactersCreated === 0" class="card mb-3 animate__animated animate__fadeIn">
+        <p class="fs-1 px-3 py-3 text-center">Todavía no tienes personajes disponibles ¡Crea tu primer personaje!</p>
+    </div>
+</div>

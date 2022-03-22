@@ -1,0 +1,35 @@
+.bg-features{
+    background-image: url("../../../../assets/img/features/header.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+
+.bg-gen-name{
+    background-image: url("../../../../assets/img/features/people.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-diccionary{
+    background-image: url("../../../../assets/img/features/letter.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-sa-dictionary{
+    background-image: url("../../../../assets/img/features/glasses.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-ph-dictionary{
+    background-image: url("../../../../assets/img/features/game.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

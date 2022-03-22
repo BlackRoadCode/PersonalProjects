@@ -1,0 +1,98 @@
+
+<app-navbar></app-navbar>
+
+<div class="container"><div class="row"><div class="col my-4"></div></div></div>
+
+<div class="container-fluid">
+    <div class="row mt-5 mb-3">
+        <div class="offset-md-4 col-md-4 login-box animate__animated animate__fadeIn">
+
+            <div class="mt-3 mb-5">
+                <h2 class="text-center">¡Bienvenido de nuevo!</h2>
+            </div>
+
+            <div *ngIf="emailPassError" class="alert alert-danger alert-dismissible animate__animated animate__fadeIn" role="alert">
+                <h6 class="alert-heading text-center">Error al ingresar correo electrónico o contraseña.</h6>
+                <hr>
+                Si olvidaste tu contraseña puedes restablecerla <a class="alert-link" [routerLink]="['/auth', 'recovery']" >Aquí</a>. <br>
+                Si no tienes una cuenta de usuario, puedes crearla <a class="alert-link" [routerLink]="['/auth', 'register']" >Aquí</a>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+              <div *ngIf="requestsError" class="alert alert-danger alert-dismissible animate__animated animate__fadeIn" role="alert">
+                <h6 class="alert-heading text-center">Demasiados intentos fallidos.</h6>
+                <hr>
+                <p>El acceso a esta cuenta se ha desactivado temporalmente debido a muchos intentos fallidos de inicio de sesión. Puede restaurarlo inmediatamente <a class="alert-link" href="#">restableciendo su contraseña</a> o puede intentarlo de nuevo más tarde.</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              
+
+            <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Correo Electr&oacute;nico</label>
+                    <input 
+                        type="email" 
+                        class="form-control"  
+                        id="loginEmail" 
+                        formControlName="email"
+                        [class.is-invalid]="emailNoValid" 
+                        [class.is-valid]="emailValid">
+                    <div *ngIf="!emailNoValid" id="emailHelp" class="form-text">Nunca compartiremos tu correo electr&oacute;nico con nadie.
+                    </div>
+                    <div *ngIf="emailNoValid" class="invalid-feedback">
+                        Favor de ingresar un email válido.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="frm-password" class="form-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="frm-password" 
+                        formControlName="password"
+                        autocomplete="on"
+                        [class.is-invalid]="passwordNoValid" 
+                        [class.is-valid]="passwordValid">
+
+                    <div *ngIf="passwordNoValid" class="invalid-feedback">
+                        El password ingresado debe de tener al menos 7 caracteres.
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="LoginRememberme" formControlName="rememberme">
+                    <label class="form-check-label" for="LoginRememberme">Recordarme</label>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary rounded-0 px-5" [disabled]="!loginForm.valid">Ingresar</button>
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="d-grid gap-2 d-block">
+                    <button class="btn bg-orange text-white rounded-0" (click)="onGoogleLogin()" ><i class="bi bi-google"></i> Conectarme con Gmail</button>
+                    <!-- <button class="btn btn-primary"><i class="bi bi-facebook"></i> Conectarme con Facebook</button>
+                    <button class="btn btn-info text-white"><i class="bi bi-twitter"></i> Conectarme con Twitter</button> -->
+                </div>
+
+                <hr class="my-4" />
+                <p class="text-center">
+                    <small class="text-muted text-center">¿Todav&iacute;a no tienes cuenta?
+                        <a class="text-decoration-none pointer" href="auth/register">Reg&iacute;strate</a>
+                    </small>
+                </p>
+                <p class="text-center">
+                    <small class="text-muted text-center"><a class="text-decoration-none"
+                            href="auth/recovery">¿Olvidaste tu Contraseña?</a></small>
+                </p>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<app-prefooter></app-prefooter>
+
+<app-footer></app-footer>

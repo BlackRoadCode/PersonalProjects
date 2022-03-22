@@ -1,0 +1,40 @@
+<div class="container"><div class="row"><div class="col my-4"></div></div></div>
+
+<div class="container-fluid mt-5 mb-3">
+        
+        <div class="row my-2 animate__animated animate__fadeIn">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <p class="m-0 fs-5">Obra: {{ work.title }}</p>
+                <p class="m-0 fs-5">Autor: {{ work.author }}</p>
+                
+                <div class="form-check form-switch ms-3 mt-2">
+                    <input (change)="viewCounter = !viewCounter" class="form-check-input" type="checkbox" id="controlWordCounter">
+                    <label *ngIf="viewCounter" class="form-check-label fw-light" for="controlWordCounter">Contador de palabras OFF</label>
+                    <div [className]="viewCounter ? 'inactive' : 'active'" id="counter"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-3 text-end">
+                <button [routerLink]="['view']" class="btn bg-bp-green text-white rounded-0">Ver Obra / Exportar</button>
+                <button (click)="saveWork()" class="btn bg-orange text-white ms-2 px-4 rounded-0">Guardar</button>
+                <button [routerLink]="['/private', 'dashboard', 'editor']" class="btn bg-secondary text-white ms-2 rounded-0">Regresar a obras</button>
+            </div>
+        </div>
+
+        <hr>
+    
+    <div *ngIf="loader">Aquí va cargando mientras llega el work...</div>
+    
+    <div *ngIf="!loader" class="row mt-2 mb-3">
+        <div class="col-12">
+            <quill-editor 
+                [(ngModel)]="work.bodyContent" format="html" 
+                [modules]="{ counter: { container: '#counter', unit: 'word' } }" 
+                [styles]="{height: '550px', width:'100%'}"
+            >
+            </quill-editor>
+    
+        </div>
+    </div>
+</div>
+

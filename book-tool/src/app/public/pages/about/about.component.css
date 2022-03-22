@@ -1,0 +1,5 @@
+.bg-about-img{
+    background-image: url("../../../../assets/img/about/sea.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

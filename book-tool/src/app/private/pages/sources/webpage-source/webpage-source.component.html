@@ -1,0 +1,240 @@
+<ng-container class="animate__animated animate__fadeIn" *ngIf="webPageSourceFlag" [formGroup]="webPageSourceForm">
+  
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-3">Página web o artículo online &nbsp;<i (click)="help('onlineArticle');" class="bi bi-info-circle text-decoration-none text-primary pointer"></i></h5>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wptitle">Título</span>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Web Page Title" 
+          formControlName="webPageTitle"
+          [class.is-invalid]="webPageTitleInvalid" 
+          [class.is-valid]="webPageTitleValid" >
+        </div>
+        <small *ngIf="webPageTitleInvalid" class="form-text text-danger">Campo requerido</small>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpurl">URL</span>
+          <input 
+          type="text" 
+          class="form-control" 
+          placeholder="url" 
+          formControlName="webPageUrl"
+          [class.is-invalid]="webPageUrlInvalid" 
+          [class.is-valid]="webPageUrlValid" >
+        </div>
+        <small *ngIf="webPageUrlInvalid" class="form-text text-danger">Favor de ingresar una URL válida, se debe de incluir el protocólo (https, http).</small>
+      </div>
+      
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-2">Autor o autores &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+      
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="float-end">
+          <div *ngIf="!itsOrganization" class="input-group mb-3">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" [value]="itsUnknowAuthor" (change)="itsUnknowAuthor = !itsUnknowAuthor" formControlName="itsUnknowAuthor">
+            </div>
+            <span class="input-group-text bg-white">Desconocido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span *ngIf="itsOrganization" class="input-group-text" id="wpauthorname">Organización</span>
+          <input *ngIf="itsOrganization" type="text" class="form-control" placeholder="Organization" formControlName="organization">
+        </div>
+      </div>
+
+      <div *ngIf="!itsUnknowAuthor" class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <div class="float-end">
+          <div class="input-group mb-1">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" [value]="itsOrganization" (change)="itsOrganization = !itsOrganization">
+            </div>
+            <span class="input-group-text bg-white">Organización</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="authors" *ngIf="!itsOrganization && !itsUnknowAuthor">
+
+      <div *ngFor="let author of authorsWebPage.controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="row animate__animated animate__fadeIn">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+              <div class="input-group mb-1">
+                <span class="input-group-text" id="wpauthorname">Iniciales</span>
+                <input type="text" class="form-control" placeholder="Initials" formControlName="authorInitials">
+              </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+              <div class="input-group mb-1">
+                <span class="input-group-text" id="wpauthorname">Apellido</span>
+                <input type="text" class="form-control" placeholder="Last name" formControlName="authorLastName">
+              </div>
+              <hr *ngIf="addAuthor">
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row animate__animated animate__fadeIn">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+          <div class="float-end">
+            <small class="text-muted mx-2">Añadir Autor</small> <button (click)="addAuthorWebPage(); addAuthor = true;" class="btn btn-success">
+              <i class="bi bi-plus-circle"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-2">Fecha de Publicación &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+    </div>
+    
+    <div class="row animate__animated animate__fadeIn">
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Día</span>
+          <input 
+          type="number" 
+          class="form-control" 
+          placeholder="dd" 
+          formControlName="publishDateDay"
+          [class.is-invalid]="publishDateDayInvalid" 
+          [class.is-valid]="publishDateDayValid">
+        </div>
+        <small *ngIf="publishDateDayInvalid" class="form-text text-danger">Favor de ingresar un número entre 1 y 31.</small>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Mes</span>
+          <input 
+          type="number" 
+          class="form-control" 
+          placeholder="mm" 
+          formControlName="publishDateMonth"
+          [class.is-invalid]="publishDateMonthInvalid"
+          [class.is-valid]="publishDateMonthValid">
+        </div>
+        <small *ngIf="publishDateMonthInvalid" class="form-text text-danger">Favor de ingresar un número entre 1 y 12.</small>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Año</span>
+          <input 
+          type="number" 
+          class="form-control" 
+          placeholder="yyyy"
+          formControlName="publishDateYear"
+          [class.is-invalid]="publishDateYearInvalid"
+          [class.is-valid]="publishDateYearValid">
+        </div>
+        <small *ngIf="publishDateYearInvalid" class="form-text text-danger">Formato de año a 4 dígitos. Ej. 1982</small>
+      </div>
+
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-2">Fecha de Consulta &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+    </div>
+    
+    <div class="row animate__animated animate__fadeIn">
+      
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Día</span>
+          <input 
+          type="number" 
+          class="form-control" 
+          placeholder="dd" 
+          formControlName="consultDateDay"
+          [class.is-invalid]="consultDateDayInvalid" 
+          [class.is-valid]="consultDateDayValid">
+          <small *ngIf="consultDateDayInvalid" class="form-text text-danger">Favor de ingresar un número entre 1 y 31.</small>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Mes</span>
+          <input 
+          type="number" 
+          class="form-control" 
+          placeholder="mm" 
+          formControlName="consultDateMonth"
+          [class.is-invalid]="consultDateMonthInvalid" 
+          [class.is-valid]="consultDateMonthValid">
+          <small *ngIf="consultDateMonthInvalid" class="form-text text-danger">Favor de ingresar un número entre 1 y 12.</small>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Año</span>
+          <input 
+          type="number" 
+          class="form-control" 
+          placeholder="yyyy" 
+          formControlName="consultDateYear"
+          [class.is-invalid]="consultDateYearInvalid" 
+          [class.is-valid]="consultDateYearValid">
+          <small *ngIf="consultDateYearInvalid" class="form-text text-danger">Formato de año a 4 dígitos. Ej. 1982</small>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="row animate__animated animate__fadeIn">
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-2">Sitio Web &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpurl">Nombre</span>
+          <input type="text" class="form-control" placeholder="name" formControlName="websiteName">
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-end my-2">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <button (click)="saveSource(webPageSourceForm, 'webpage')" type="button" class="btn btn-success">Guardar Fuente</button>
+        <!-- <button (click)="activateAddSource('noneClass')" type="button" class="btn btn-danger ms-2 text-white">Cancelar</button> -->
+        <button routerLink="['/private', 'dashboard', 'sources']" type="button" class="btn btn-danger ms-2 text-white">Cancelar</button>
+      </div>
+    </div>
+
+   </ng-container>

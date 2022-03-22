@@ -1,0 +1,151 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="mt-5 mb-3 animate__animated animate__fadeIn">
+        <!-- <div class="card-body"> -->
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mt-4">
+                <h3 class="my-0">Obra</h3>
+                <h3><small class="text-secondary">Aquí empieza la creación de tu próximo Best Seller.</small></h3>
+                <hr class="hr-elements bg-secondary mt-0">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-lg-end text-md-end text-center my-3 m-md-0">
+                <div class="">
+                    <!-- Button to create a new work -->
+                    <button *ngIf="numberWorksCreated < numWorks" (click)="newFlag = true" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Nueva Obra <i class="bi bi-plus"></i></button>
+                    <button *ngIf="numWorks === numberWorksCreated || numWorks < numberWorksCreated" (click)="getPremium()" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Nueva Obra <i class="bi bi-plus"></i></button>
+
+                    <button (click)="setEditorView('c')" class="btn btn-outline-info me-2"><i class="bi bi-grid"></i></button>
+                    <button (click)="setEditorView('l')" class="btn btn-outline-info"><i class="bi bi-list"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p class="fs-5">Puedes iniciar aquí la creación de tu obra, todas las funcionalidades están diseñadas
+                    para apoyarte en el camino a finalizarla, si podemos ayudarte en algo, por favor no dudes en
+                    contactarnos.</p>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+
+    <!-- <div  class="card my-2 animate__animated animate__fadeIn"> -->
+    <div *ngIf="msgPremiumAccount" class="alert alert-success" role="alert">
+        Tu periodo premium ha terminado pero no te preocupes <strong>ninguno de tus datos ha sido borrado*</strong>,
+        puedes renovar en un plan más económico para tener acceso a las características propias del plan. también puedes
+        <a [routerLink]="['/private', 'dashboard', 'contact']" class="alert-link">contactarnos</a> para revisar tus
+        necesidades de forma personalizada.
+        <br><small class="text-muted">*Tus datos se almacenan durante 3 meses, si no renuevas tu plan o tu cuenta no
+            tiene actividad serán eliminados.</small>
+    </div>
+    <!-- </div> -->
+
+    <!-- Create new record -->
+    <div *ngIf="newFlag" class="card my-2 animate__animated animate__fadeIn">
+        <div class="card-body">
+
+            <div class="row" [formGroup]="workForm">
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Autor</span>
+                        <input type="text" class="form-control" formControlName="author">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group mb-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span class="input-group-text" id="basic-addon1">Título</span>
+                        <input type="text" class="form-control" formControlName="title">
+                    </div>
+                </div>
+
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                    <div class="input-group">
+                        <span class="input-group-text">Idea</span>
+                        <textarea class="form-control" formControlName="briefIdea"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 mt-3">
+                    <button (click)="saveWork()" class="btn bg-bp-green text-white rounded-0">Guardar</button>
+                    <button (click)="cancelNewWork()" class="btn bg-orange text-white ms-2 rounded-0">Cancelar</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- view Card works -->
+    <div *ngIf="viewCard && numberWorksCreated > 0" class="row animate__animated animate__fadeIn">
+        <div class="text-center pt-3 pb-3">
+            <h3 class="fw-normal">Tus Obras Disponibles</h3>
+        </div>
+
+        <div *ngFor="let work of works" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4">
+            <div class="card text-center h-100 rounded-0 bg-light-gray shadow-sm">
+                <p class="pt-3 fs-5">De: {{ work.author }}</p>
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ work.title }}</h5>
+                    <p class="card-text">{{ work.idea }}</p>
+                    <a routerLink="{{work.wid}}" class="btn bg-bp-green text-white rounded-0 px-4">Escribir</a>
+
+                    <hr>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <p>Creado el: {{ work.creationDate }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Editado el: {{ work.creationDate }}</strong></p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- view List works -->
+    <div *ngIf="viewList && numberWorksCreated > 0" class="card my-2 animate__animated animate__fadeIn">
+        <div class="card-body">
+            <div class="row">
+                <div class="text-center">
+                    <h4>Tus Obras Disponibles</h4>
+                </div>
+
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Autor</th>
+                            <th>Título</th>
+                            <th>Fecha de creación</th>
+                            <th>Escribir</th>
+                            <!-- <th>Borrar</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let work of works">
+                            <td class="align-middle"> {{ work.author }}</td>
+                            <td class="align-middle">{{ work.title }}</td>
+                            <td class="align-middle">{{ work.creationDate }}</td>
+                            <td><a routerLink="{{ work.wid }}" class="btn bg-bp-green text-white rounded-0"><i class="bi bi-pencil"></i></a>
+                            </td>
+                            <!-- <td><a (click)="deleteTimeline(timeline.tlid)" class="btn btn-outline-danger ms-2"><i class="bi bi-trash"></i></a></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="numberWorksCreated === 0 && !newFlag" class="my-2 animate__animated animate__fadeIn">
+        <p class="display-2 text-center mb-0"><i class="bi bi-exclamation-triangle"></i></p>
+        <p class="fs-3 text-center">Todavía no tienes tu primer obra ¡Créala aquí!</p>
+    </div>
+</div>

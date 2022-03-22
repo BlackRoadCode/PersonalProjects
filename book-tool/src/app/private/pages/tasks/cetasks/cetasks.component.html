@@ -1,0 +1,70 @@
+<div class="container"><div class="row"><div class="col my-4"></div></div></div>
+
+<div class="container-fluid animate__animated animate__fadeIn">
+    
+    <div class="row mt-5 mb-2">
+        <div class="card animate__animated animate__fadeIn">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <h3>Crear Lista de tareas</h3>
+                        <p>Las listas de tareas son útiles para mantener control de lo que te falta por hacer y las dependencias
+                            entre tareas.</p>
+                    </div>
+                    <!-- <div class="col-3 align-middle">
+                        <div class="">
+                            <button routerLink="new" class="btn btn-outline-info me-2"><i class="bi bi-card-list"></i></button>
+                            <button routerLink="new" class="btn btn-outline-info me-2"><i class="bi bi-list"></i></button>
+                            <button routerLink="new" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Nuevo</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 offset-lg-4 offset-md-4 offset-sm-0 offset-sx-0">
+            <div class="card my-2 animate__animated animate__fadeIn">
+                <div class="card-body">
+    
+                    <form [formGroup]="taskListForm">
+                        <div class="mb-3">
+                            <h4>Título de la lista</h4>
+                            <input formControlName="title" type="text" class="form-control" id="listTitle">
+                        </div>
+    
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>Tareas</h6>
+                                <div formArrayName="tasks">
+                                    <div *ngFor="let task of tasks.controls; let i = index" class="input-group mb-3">
+                                        <input type="text" class="form-control animate__animated animate__fadeIn" [formControlName]="i" >
+                                        <button *ngIf="!editTaskListFlag" (click)="deleteTask(i)" class="btn btn-outline-danger animate__animated animate__fadeIn" type="button"><i class="bi bi-trash"></i></button>
+                                        <button *ngIf="editTaskListFlag" (click)="deleteTaskInTaskList(i)" class="btn btn-outline-danger animate__animated animate__fadeIn" type="button"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="text-end mt-2">
+                            <button (click)="addTask()" type="submit" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i></button>
+                            <div class="text-small form-text">Añadir tarea</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button *ngIf="!editTaskListFlag" (click)="saveTaskList()" class="btn bg-bp-green text-white rounded-0">Guardar</button>
+                                <button *ngIf="editTaskListFlag" (click)="editTaskList(task)" class="btn bg-bp-green text-white rounded-0">Actualizar</button>
+                                <button (click)="cancelTaskList()" class="btn bg-orange text-white rounded-0 ms-2">Cancelar</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

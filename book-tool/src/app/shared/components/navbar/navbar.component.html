@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top px-lg-7 px-md-7 px-sm-0 px-xs-0" id="up">
+
+    <div class="container-fluid px-lg-7 px-md-7 px-sm-0 px-xs-0">
+        <p class="text-white">BETA</p>
+        <a class="navbar-brand" href="#">
+            <img src="/assets/img/generals/bp-logo.svg" alt="" width="70%" height="auto">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseButton"
+            aria-controls="navbarCollapseButton" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapseButton">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item mx-3 mt-2">
+                    <a class="nav-link text-white" routerLinkActive="link-active"
+                        [routerLink]="['/about']">{{'publicNavbar.about' | translate }}</a>
+                </li>
+                <li class="nav-item mx-3 mt-2">
+                    <a class="nav-link text-white" routerLinkActive="link-active"
+                        [routerLink]="['/features']">{{'publicNavbar.features' | translate }}</a>
+                </li>
+                <!-- <li class="nav-item mx-3 mt-2">
+                    <a class="nav-link text-white" routerLinkActive="link-active" [routerLink]="['/blog']">Blog</a>
+                </li> -->
+                <!-- <li *ngIf="!user" class="nav-item mx-3 mt-2">
+                    <a class="nav-link text-white" routerLinkActive="link-active" [routerLink]="['/pricing']">{{ 'publicNavbar.pricing' | translate }}</a>
+                </li> -->
+                <li class="nav-item mx-3 mt-2">
+                    <a class="nav-link text-white" routerLinkActive="link-active" [routerLink]="['/contact']">{{ 'publicNavbar.contact' | translate }}</a>
+                </li>
+
+                <li *ngIf="user && user.emailVerified" class="nav-item dropdown mx-3 mt-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Elementos</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'home-dashboard']">Dashboard</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'editor']">Obra</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'characters']">Personajes</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'notes']">Notas</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'sources']">Fuentes</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'tasks']">Listas de tareas</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'inspiration']">Inspiración</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'time-line']">Linea de tiempo</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'contact']">Contacto</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li *ngIf="user && user.emailVerified" class="nav-item dropdown mx-3 mt-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Recursos</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'resources', 'gen-name']">Generador de Nombres</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'resources', 'dictionary']">Diccionario</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/private', 'dashboard', 'resources', 'synonym']">Diccionario de Sinónimos y Antónimos</a></li>
+                        <li><a class="dropdown-item" href="https://www.rae.es/dpd/"  target="_blank">Diccionario Panhispánico de dudas <i class="bi bi-box-arrow-up-right"></i></a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <form class="d-flex mt-2">
+                <select class="form-select form-select-sm me-4" #selectedLang (change)="switchLang(selectedLang.value)">
+                    <option *ngFor="let language of translateService.getLangs()" [value]="language"
+                        [selected]="language === translateService.currentLang">
+                        {{ language }}
+                    </option>
+                </select>
+            </form>
+
+            <a *ngIf="!user || !user.emailVerified" class="me-3 mt-2 text-white" [routerLink]="['/auth','login']">{{
+                'publicNavbar.login' | translate }}</a>
+            <a *ngIf="!user" class="mx-4 mt-2 text-danger" [routerLink]="['/auth','register']"
+                [innerHTML]="'publicNavbar.register' | translate">{{ 'publicNavbar.login' | translate }}</a>
+
+            <a *ngIf="user && user.emailVerified" class="mx-4 mt-2 text-danger" [routerLink]="['/private','contact']">{{
+                'publicNavbar.comments' | translate }}</a>
+            <a *ngIf="user && user.emailVerified" class="mx-4 mt-2 text-warning pointer" (click)="logout()">{{
+                'publicNavbar.logout' | translate }}</a>
+
+            <div *ngIf="user" class="btn-group ms-2">
+                <img class="dropdown-toggle user-navbar-avatar mt-2" data-bs-toggle="dropdown" type="button"
+                    [src]="user.photoURL | image" [alt]="user.displayName" width="30" height="30">
+
+                <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end mt-2">
+                    <li class="dropdown-item text-center"><small>{{ user.email }}</small></li>
+                    <li *ngIf="user && user.emailVerified"><a class="dropdown-item"
+                            [routerLink]="['/private', 'dashboard', 'home-dashboard']">Dashboard</a></li>
+                    <li *ngIf="user && !user.emailVerified"><a class="dropdown-item disabled">Dashboard</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['/private', 'account']">{{'publicNavbar.account' |
+                            translate }}</a></li>
+                    <li><a class="dropdown-item" (click)="logout()">{{'publicNavbar.logout' | translate }}</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row my-3">
+        <div class="col-md-8 col-sm-12 offset-md-2 offset-sm-0 animate__animated animate__fadeIn">
+
+            <div class="card my-5" *ngIf="user$ | async as user; else loading">
+                <div class="card-body">
+                  <h1 *ngIf="origin === 'register'" class="text-center card-title">Registro exitoso</h1>
+                  <h1 *ngIf="origin === 'verification'" class="text-center card-title">Email no verificado</h1>
+                  <hr>
+                  <h6 class="card-subtitle mb-2 text-muted text-center">¡Listo!</h6>
+                  <p *ngIf="origin === 'register'" class="card-text text-center">Te enviamos un correo a <strong>{{ user?.email }}</strong>, ese correo contiene un link para que verifiques tu dirección, simplemente dale clic y ya puedes logearte en tu cuenta.</p>
+                  <p *ngIf="origin === 'verification'" class="card-text text-center">Parece que tu correo <strong>{{ user?.email }}</strong>, no ha sido verificado.</p>
+                  <a *ngIf="origin === 'register'" routerLink="/auth/login" class="card-link">Ir al Login</a>                
+                  
+                  <div *ngIf="origin === 'verification'">
+                      <p class="card-text text-center">Si todavía no has confirmado tu dirección de correo, <strong>puedes solicitar el reenvío del enlace de verificación en el siguiente botón: </strong></p>
+                      <div class="text-center">
+                          <button (click)="onResendVerificationEmail()" class="btn btn-primary"> Reenviar el correo de verificación </button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    Loading...
+</ng-template>
+
+<app-prefooter></app-prefooter>
+
+<app-footer></app-footer>

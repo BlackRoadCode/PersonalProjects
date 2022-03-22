@@ -1,0 +1,40 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+  <div class="mt-5 mb-2">
+      <h3>Contáctanos</h3>
+      <hr class="hr-elements bg-secondary mt-0">
+      <h3><small class="text-muted">Lo más importante son tus necesidades.</small></h3>
+      <p>¿Necesitas algún campo extra en las fichas de personajes? ¿Alguna funcionalidad te ayudaria más en el camino a finalizar tu obra? ¿Alguna de las funcionalidades no es como debería de ser? ¡Cuentanos todo!</p>
+  </div>
+  
+  <div class="card mt-2 animate__animated animate__fadeIn">
+    <div class="card-body">
+  
+      <div [formGroup]="contactForm">
+        <div class="mb-3">
+          <select class="form-select" formControlName="contactMotive">
+            <option selected>¿A qué está relacionado tu comentario?</option>
+            <option value="1">Mi pago tiene más de 24 horas y no han activado mi cuenta.</option>
+            <option value="2">Solicitud de nueva funcionalidad.</option>
+            <option value="3">Solicitud de modificación a funcionalidad existente.</option>
+            <option value="4">Tuve un error con el sistema</option>
+            <option value="5">Otro comentario</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cuéntanos todo con más detalle</label>
+          <textarea class="form-control" rows="5" formControlName="contactDescription"></textarea>
+        </div>
+    
+        <div class="mb-3 text-end">
+          <button (click)="saveContact()" class="btn bg-orange text-white rounded-0">Enviar mensaje</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <p>Nos tomamos MUY en serio los comentarios de nuestros usuarios, no es posible garantizar que atenderemos todos los comentarios, lo que sí podemos garantizar es que escucharemos y contestaremos a todos</p>
+  </div>
+
+</div>

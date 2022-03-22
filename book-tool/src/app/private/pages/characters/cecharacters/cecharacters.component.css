@@ -1,0 +1,7 @@
+.bg-blur{
+    backdrop-filter: blur(5px);
+}
+
+.top-13{
+    top:13% !important;
+  }

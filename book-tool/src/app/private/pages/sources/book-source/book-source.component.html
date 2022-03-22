@@ -1,0 +1,201 @@
+<ng-container class="animate__animated animate__fadeIn" *ngIf="bookSourceFlag" [formGroup]="bookSourceForm">
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-3">Tipo de Libro &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <select class="form-select">
+          <option selected>Tipo</option>
+          <option value="1">Libro o colección</option>
+          <option value="2">Capítulo o entrada de un libro</option>
+          <option value="3">Obra de varios volumenes</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-3">Versión</h5>
+      </div>
+    </div>
+    
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-outline-primary">Impreso</button>
+          <button type="button" class="btn btn-outline-primary">Digital</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-3">Libro o Colección &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+      <div class="input-group mb-1">
+        <span class="input-group-text" id="btitle">Título</span>
+        <input 
+        type="text" 
+        class="form-control" 
+        placeholder="title" 
+        formControlName="bookTitle"
+        [class.is-invalid]="bookTitleInvalid" 
+        [class.is-valid]="bookTitleValid" >
+      </div>
+      <small *ngIf="bookTitleInvalid" class="form-text text-danger">Campo requerido</small>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-2">Autor o autores &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+      
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="float-end">
+          <div class="input-group mb-3">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" [value]="itsUnknowAuthor" (change)="itsUnknowAuthor = !itsUnknowAuthor" formControlName="itsUnknowAuthor">
+            </div>
+            <span class="input-group-text bg-white">Desconocido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="authors" *ngIf="!itsOrganization && !itsUnknowAuthor" >
+      <div *ngFor="let author of authorsBook.controls; let i = index" >
+        <div [formGroupName]="i">
+          <div class="row animate__animated animate__fadeIn">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+              <div class="input-group mb-1">
+                <span class="input-group-text" id="wpauthorname">Iniciales</span>
+                <input type="text" class="form-control" placeholder="Initials" formControlName="authorInitials">
+              </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+              <div class="input-group mb-1">
+                <span class="input-group-text" id="wpauthorname">Apellido</span>
+                <input type="text" class="form-control" placeholder="Last name" formControlName="authorLastName">
+              </div>
+              <hr *ngIf="addAuthor"> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row animate__animated animate__fadeIn">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+          <div class="float-end">
+            <small class="text-muted mx-2">Añadir Autor</small> <button (click)="addAuthorWebPage(); addAuthor = true;" class="btn btn-success"><i class="bi bi-plus-circle"></i></button>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+    <div class="row animate__animated animate__fadeIn pt-1">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <div class="input-group mb-1">
+          <span class="input-group-text" id="wpauthorname">Organización</span>
+          <input type="text" class="form-control" placeholder="Organization" formControlName="organization">
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <div class="float-end">
+          <div class="input-group mb-3">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+            </div>
+            <span class="input-group-text bg-white">Organización</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-3">Editorial &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+      <div class="input-group mb-1">
+        <span class="input-group-text" id="bename">Nombre</span>
+        <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Name" 
+        formControlName="editorialName"
+        [class.is-invalid]="editorialNameInvalid" 
+        [class.is-valid]="editorialNameValid" >
+      </div>
+      <small *ngIf="editorialNameInvalid" class="form-text text-danger">Campo requerido</small>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-3">Fecha de Publicación &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+      <div class="input-group mb-1">
+        <span class="input-group-text" id="byear">Año</span>
+        <input 
+        type="number" 
+        class="form-control" 
+        placeholder="Year" 
+        formControlName="publishDateYear"
+        [class.is-invalid]="publishDateYearInvalid"
+          [class.is-valid]="publishDateYearValid">
+      </div>
+      <small *ngIf="publishDateYearInvalid" class="form-text text-danger">Formato de año a 4 dígitos. Ej. 1982</small>
+    </div>
+
+    <div class="row animate__animated animate__fadeIn">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <h5 class="my-2">DOI/URL &nbsp;<a href="#"><i class="bi bi-info-circle text-decoration-none"></i></a></h5>
+      </div>
+      
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="float-end">
+          
+          <div class="btn-group" role="group">
+            <button (click)="bookUrl = false; bookDoi = true" type="button" class="btn btn-outline-primary">DOI</button>
+            <button (click)="bookUrl = true; bookDoi = false" type="button" class="btn btn-outline-primary">URL</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+      <div *ngIf="bookDoi" class="input-group mb-1">
+        <span class="input-group-text" id="bdoi">DOI</span>
+        <input type="text" class="form-control" placeholder="DOI" formControlName="bookSourceDoi">
+      </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+      <div *ngIf="bookUrl" class="input-group mb-1">
+        <span class="input-group-text" id="burl">URL</span>
+        <input type="text" class="form-control" placeholder="URL" formControlName="bookSourceUrl">
+      </div>
+    </div>
+
+    <div class="row text-end my-2">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+        <button (click)="saveSource(bookSourceForm, 'book')" type="button" class="btn btn-success">Guardar Fuente</button>
+        <button (click)="activateAddSource('noneClass')" type="button" class="btn btn-danger ms-2">Cancelar</button>
+      </div>
+    </div>
+
+    </ng-container>

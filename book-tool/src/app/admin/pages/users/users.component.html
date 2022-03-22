@@ -1,0 +1,68 @@
+
+<div class="alert alert-primary" role="alert">
+    <div class="row">
+        <div class="col-4">
+            <h6>Niveles de cuenta:</h6>
+            <p>LEVEL_A | LEVEL_B | LEVEL_C | LEVEL_D</p>
+        </div>
+
+        <div class="col-4">
+            <h6>Formato de fecha:</h6>
+            <p>10/10/20 - Día/Mes/Año (todos a dos dígitos)</p>
+        </div>
+
+        <div class="col-4">
+            <h6>Tipo de cuenta</h6>
+            <p>123 - LEVEL_A <br> 489 - LEVEL_B <br> 273 - LEVEL_C <br> 621 - LEVEL_D <br> 142 - FREE</p>
+        </div>
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3">
+    <div class="card-header bg-dark text-white">Usuarios</div>
+    <div class="card-body text-primary">
+
+        <div class="row">
+            <div class="col table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <td>uid</td>
+                            <td>Tipo Cuenta</td>
+                            <td>Email</td>
+                            <td>Inicio vigencia</td>
+                            <td>Fin vigencia</td>
+                            <td>Editar</td>
+                            <td>Guardar</td>
+                            <td>Generar TU</td>
+                            <td>Eliminar</td> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users; let i = index" [formGroup]="formUser">
+
+                            <td><small style="font-size: 6px;">{{ user.uid }}</small></td>
+        
+                            <td *ngIf="user.editUser"><input class="form-control" [value]="user.accountType" formControlName="accountType" required></td>
+                            <td *ngIf="!user.editUser">{{ user.accountType }}</td>
+        
+                            <td>{{ user.email }}</td>
+        
+                            <td *ngIf="user.editUser"><input class="form-control" [value]="user.startDate" formControlName="startDate" required></td>
+                            <td *ngIf="!user.editUser">{{ user.startDate }}</td>
+        
+                            <td *ngIf="user.editUser"><input class="form-control" [value]="user.endDate" formControlName="endDate" required></td>
+                            <td *ngIf="!user.editUser">{{ user.endDate }}</td>
+                            <td class="text-center"><button (click)="editUser(user)" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button></td>
+                            <td class="text-center"><button (click)="updateUser(user)" class="btn btn-outline-success"><i class="bi bi-save2"></i></button></td>
+                            <td class="text-center"><button (click)="setUserToken(user)" class="btn btn-outline-danger"><i class="bi bi-lightning"></i></button></td>
+                            <td class="text-center"><button (click)="deleteUser(user.uid)" class="btn btn-danger"><i class="bi bi-trash"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+  </div>
+

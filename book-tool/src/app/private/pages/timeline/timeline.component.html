@@ -1,0 +1,196 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="mt-5 mb-3 animate__animated animate__fadeIn">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mt-4">
+                <h3>Línea de tiempo</h3>
+                <h3><small class="text-muted">coherencia narrativa llevada al siguiente nivel.</small></h3>
+                <hr class="hr-elements bg-secondary mt-0">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-lg-end text-md-end text-center my-3 m-md-0">
+                <div class="">
+                    <button *ngIf="!newTimeline" (click)="newTimeline = true" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Nueva Línea de Tiempo <i class="bi bi-plus"></i></button>
+
+                    <button (click)="setTimelineView('c')" class="btn btn-outline-info me-2"><i class="bi bi-grid"></i></button>
+                    <button (click)="setTimelineView('l')" class="btn btn-outline-info me-2"><i class="bi bi-list"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p class="fs-5">Con una línea de tiempo no perderás la coherencia de los hechos en tu obra. Crea una general o una para cada uno de tus personajes*.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="msgPremiumAccount" class="alert alert-success" role="alert">
+        Tu periodo premium ha terminado pero no te preocupes <strong>ninguno de tus datos ha sido borrado*</strong>, puedes renovar en un plan más económico para tener acceso a las características propias del plan. también puedes <a [routerLink]="['/private', 'dashboard', 'contact']" class="alert-link">contactarnos</a> para revisar tus necesidades de forma personalizada.
+        <br><small class="text-muted">*Tus datos se almacenan durante 3 meses, si no renuevas tu plan o tu cuenta no tiene actividad serán eliminados.</small>
+    </div>
+    
+    <!-- New Timeline -->
+    <div *ngIf="newTimeline" class="card my-2 animate__animated animate__fadeIn">
+        <div class="card-body">
+
+            <div class="row my-2">
+                <div class="col-12 text-md-end text-sm-center">
+                    <button (click)="saveTimeline()" class="btn bg-bp-green text-white rounded-0">Guardar</button>
+                    <button (click)="newTimeline = false" class="btn bg-orange text-white rounded-0 ms-2">Cancelar</button>
+                </div>
+            </div>
+            
+            <form [formGroup]="timelineForm">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 offset-lg-4 offset-md-4 offset-sm-0 offset-sx-0">
+                        <div class="mb-3">
+                            <h5>Título de la línea de tiempo</h5>
+                            <input formControlName="title" type="text" class="form-control" id="listTitle">
+    
+                            <label class="form-label mt-2">Tipo de timeline</label>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <select formControlName="type" class="form-select">
+                                    <option value="Sucesos de la historia">Sucesos de la historia</option>
+                                    <option value="Sucesos de personaje">Sucesos de personaje</option>
+                                    <option value="Línea de tiempo general">Línea de tiempo general</option>
+                                  </select>
+                            </div>
+                        </div>
+    
+                        <div class="card">
+    
+                            <div class="card-body">
+            
+                                <h6>Nodos</h6>
+                                <small class="text-muted">Puedes añadir nodos adicionales desde la vista de tu línea de tiempo</small>
+            
+                                <div formArrayName="nodes">
+            
+                                    <div *ngFor="let node of nodes.controls; let i = index" class="input-group mb-3">
+            
+                                        <div [formGroupName]="i">
+                                            
+                                            <hr class="my-2">
+    
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <label for="nodeTitle" class="form-label">Título del nodo</label>
+                                                    <input type="text" class="form-control" id="nodeTitle" formControlName="nodeTitle">
+                                                </div>
+                                            </div>
+    
+                                            <div class="row mt-2">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="nodeTitle" class="form-label">Fecha del hecho</label>
+                                                    <input type="text" class="form-control" id="nodeTitle" formControlName="factDate">
+                                                </div>
+    
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="nodeTitle" class="form-label">Color del nodo</label>
+                                                    <select class="form-select" formControlName="nodeColor">
+                                                        <option selected>Selecciona el color para el nodo</option>
+                                                        <option value="timeline-badge danger">Rojo</option>
+                                                        <option value="timeline-badge warning">Amarillo</option>
+                                                        <option value="timeline-badge success">Verde</option>
+                                                        <option value="timeline-badge info">Azul</option>
+                                                        <option value="timeline-badge primary">Morado</option>
+                                                      </select>
+                                                </div>
+                                            </div>
+    
+                                            <div class="row mt-2">
+                                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                                                    <label for="textNode" class="form-label">Texto del nodo</label>
+                                                    <textarea class="form-control" id="textNode" rows="2" formControlName="textNode"></textarea>
+                                                </div>
+    
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mt-5">
+                                                    <button (click)="deleteNode(i)" class="btn btn-outline-danger animate__animated animate__fadeIn" type="button"><i class="bi bi-trash"></i></button>
+                                                </div>
+    
+                                            </div>
+    
+                                        </div>                            
+    
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center mt-2">
+                            <button (click)="addNode()" type="submit" class="btn btn-outline-info"><i
+                                    class="bi bi-plus-circle"></i></button>
+                            <div class="text-small form-text">Añadir nodo</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    
+        </div>
+    </div>
+    
+    <!-- View Card -->
+    <div *ngIf="viewCard && !newTimeline && numberTimelinesCreated > 0" class="animate__animated animate__fadeIn">
+        <div class="card-body">
+            <div class="row">
+    
+                <div *ngFor="let timeline of timelines" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mt-4">
+                    <div class="card text-center h-100 rounded-0 shadow-sm">
+                        <div class="card-header text-uppercase">
+                            {{ timeline.type }}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ timeline.title }}</h5>
+                            <a routerLink="{{ timeline.tlid }}" class="btn bg-bp-green text-white rounded-0">Ver</a>
+                            <a (click)="deleteTimeline(timeline.tlid)" class="btn btn bg-orange text-white ms-2 rounded-0"><i class="bi bi-trash"></i></a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Creado el: {{ timeline.creationDate }}
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    
+    <!-- View List -->
+    <div *ngIf="viewList && !newTimeline && numberTimelinesCreated > 0" class="card mb-3 animate__animated animate__fadeIn">
+        <div class="card-body">
+            <table class="table table-hover">
+    
+    
+                <thead class="table-dark">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Título</th>
+                        <th>Fecha de creación</th>
+                        <th>Nodos</th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let timeline of timelines">
+                        <td> {{ timeline.type }} </td>
+                        <td>{{ timeline.title }}</td>
+                        <td>{{ timeline.creationDate }}</td>
+                        <td>{{ timeline.nodes.length }}</td>
+                        <td><a routerLink="{{ timeline.tlid }}" class="btn bg-bp-green text-white rounded-0"><i class="bi bi-eye"></i></a></td>
+                        <td><a (click)="deleteTimeline(timeline.tlid)" class="btn bg-orange text-white rounded-0 ms-2"><i class="bi bi-trash"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div *ngIf="numberTimelinesCreated === 0 && !newTimeline" class="my-2 animate__animated animate__fadeIn">
+        <p class="fs-1 px-3 py-3 text-center">Todavía no tienes líneas de tiempo disponibles ¡Crea tu primer línea de tiempo!</p>
+    </div>
+</div>
+

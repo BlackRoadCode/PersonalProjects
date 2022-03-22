@@ -1,0 +1,127 @@
+<div class="my-2 animate__animated animate__fadeIn">
+    <div class="row my-5 animate__animated animate__fadeIn">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-start">
+            <button *ngIf="exportTimeline" (click)="exportAsPDF(fileName)" class="btn btn-danger ms-1 text-white rounded-0"><i class="bi bi-file-text"></i> PDF <i class="bi bi-download"></i></button>
+            <button *ngIf="!exportTimeline" (click)="getPremium()" class="btn btn-danger ms-1 text-white rounded-0"><i class="bi bi-lock"></i> PDF <i class="bi bi-download"></i></button>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-end">
+            <button [routerLink]="['/private', 'dashboard', 'time-line']" class="btn bg-secondary text-white rounded-0">Regresar a Timelines</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="editNodeFlag || addNodeFlag" class="card my-2 animate__animated animate__slideInDown">
+    <div class="card-body">
+        <div [formGroup]="nodeForm">
+
+            <div class="input-group mb-3">
+
+                <hr class="my-2">
+
+                <div class="container">
+
+                    <div class="row">
+                        <div
+                            class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+
+                            <h5 *ngIf="addNodeFlag && !editNodeFlag" class="text-center text-uppercase">Añadir Nodo</h5>
+                            <h5 *ngIf="editNodeFlag && !addNodeFlag" class="text-center text-uppercase">Editar: <small
+                                    class="text-muted">{{nodeTitle}}</small></h5>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    <label for="nodeTitle" class="form-label">Título del nodo</label>
+                                    <input type="text" class="form-control" id="nodeTitle" formControlName="nodeTitle">
+                                </div>
+
+                                <div class="col">
+                                    <label for="factDate" class="form-label">Fecha del hecho</label>
+                                    <input type="text" class="form-control" id="factDate" formControlName="factDate">
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nodeColor" class="form-label">Color del nodo</label>
+                                    <select class="form-select form-control-sm" formControlName="nodeColor">
+                                        <option selected>Selecciona el color para el nodo</option>
+                                        <option value="timeline-badge danger">Rojo</option>
+                                        <option value="timeline-badge warning">Amarillo</option>
+                                        <option value="timeline-badge success">Verde</option>
+                                        <option value="timeline-badge info">Azul</option>
+                                        <option value="timeline-badge primary">Morado</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="textNode" class="form-label">Texto del nodo</label>
+                                    <textarea class="form-control form-control-sm" id="textNode" rows="4"
+                                        formControlName="textNode"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 offset-sm-0 offset-xs-0">
+                            <button *ngIf="!addNodeFlag" (click)="updateNode(this.indexNode)"
+                                class="btn btn-outline-success animate__animated animate__fadeIn me-2"
+                                type="button">Actualizar</button>
+                            <button *ngIf="addNodeFlag" (click)="addNode(this.indexNode)"
+                                class="btn btn-outline-success animate__animated animate__fadeIn me-2"
+                                type="button">Guardar</button>
+                            <button (click)="cancelUpdateNode()"
+                                class="btn btn-outline-danger animate__animated animate__fadeIn"
+                                type="button">Cancelar</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="quill-editor-content" class="card mb-3">
+    <div class="card-body mb-3 animate__animated animate__fadeIn">
+
+        <h2 class="my-3 text-capitalize">{{ timeline.title }} <small class="fs-6 text-muted text-uppercase">{{ timeline.type }}</small></h2>
+
+        <ul class="timeline">
+
+            <li *ngFor="let node of timeline.nodes; let i = index" class="{{ node.nodeClass }}">
+                <div class="{{ node.nodeColor || 'timeline-badge default' }}">
+                    <a (click)="addNodeFlag = true; this.indexNode = i+1"><i class="addnode bi bi-plus-circle"></i></a>
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">{{ node.nodeTitle }}</h4>
+                        <p *ngIf="node.factDate != ''"><small class="text-muted"><i class="bi bi-calendar-event"></i> {{ node.factDate }}</small>
+                        </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>{{ node.textNode }}</p>
+                    </div>
+                    <div class="text-end">
+                        <button *ngIf="!editNodeFlag" (click)="editNode(node, i); this.indexNode = i;" type="button" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-pencil"></i></button>
+                        <button (click)="deleteNode(i)" type="button" class="btn btn-sm btn-outline-danger" [ngClass]="{'disabled':editNodeFlag}"><i class="bi bi-trash"></i></button>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="timeline-badge danger">
+                    <a (click)="addNodeFlag = true; this.indexNode = timeline.nodes.length"><i class="addnode bi bi-plus-circle"></i></a>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>

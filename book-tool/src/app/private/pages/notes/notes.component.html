@@ -1,0 +1,154 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+  <div class="my-5 mb-3 animate__animated animate__fadeIn">
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mt-4">
+        <h3>Notas</h3>
+        <h3><small class="text-muted">Crea y administra tus notas.</small></h3>
+        <hr class="hr-elements bg-secondary mt-0">
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-lg-end text-md-end text-center my-3 m-md-0">
+          <div class="">
+            <button *ngIf="numberNotesCreated < numNotes" (click)="newFlag = true" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Nueva Nota <i class="bi bi-plus"></i></button>
+            <button *ngIf="numNotes === numberNotesCreated || numNotes < numberNotesCreated" (click)="getPremium()" class="btn btn-primary"><i class="bi bi-lock"></i> Nueva Nota</button>
+
+            <button (click)="setNotesView('c');" class="btn btn-outline-info me-2"><i class="bi bi-grid"></i></button>
+            <button (click)="setNotesView('l');" class="btn btn-outline-info"><i class="bi bi-list"></i></button>
+          </div> 
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <p class="fs-5">No olvides ni un solo detalle. Aquí puedes guardar, consultar y actualizar todas tus notas.</p>
+    </div>
+</div>
+    <form class="animate__animated animate__fadeIn" *ngIf="newFlag" [formGroup]="noteForm">
+          <div class="row">
+          <div class="mb-3 col-4">
+            <label for="characterName" class="form-label">Título</label>
+            <input type="text" class="form-control" id="characterName" formControlName="title">
+          </div>
+  
+          <div class="mb-3 col-4">
+            <label for="characterAge" class="form-label">subtítulo</label>
+            <input type="text" class="form-control" id="characterAge" formControlName="subtitle">
+          </div>
+  
+          <div class="mb-3 col-4">
+            <label class="form-label">Prioridad</label>
+            <select class="form-select" aria-label="Default select example" formControlName="priority">
+              <option value="clow">Baja</option>
+              <option value="bmedium">Media</option>
+              <option value="ahigh">Alta</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="row animate__animated animate__fadeIn">
+          <div class="mb-3 col-5">
+            <label for="characterName" class="form-label">Nota</label>
+            <textarea class="form-control" id="characteristicDetails" rows="4" formControlName="noteDetails"></textarea>
+          </div>
+  
+          <div class="mb-3 col-5">
+            <label for="linkText" class="form-label">Enlace (texto)</label>
+            <input type="text" class="form-control" id="linkText" formControlName="lintText">
+            
+            <label for="linkUrl" class="form-label">Enlace (dirección web)</label>
+            <input type="text" class="form-control" id="linkUrl" formControlName="linkUrl">
+          </div>
+  
+          <div class="mb-3 col-1">
+            <button *ngIf="!editFlag" (click)="saveNote()" class="btn bg-bp-green text-white rounded-0 mt-5 mx-3" >Guardar</button>
+            <button *ngIf="editFlag" (click)="editNote(note)" class="btn bg-bp-green text-white rounded-0 mt-5 mx-3" >Actualizar</button>
+            <button (click)="cancelNewNote()" class="btn bg-orange text-white rounded-0 m-3">Cancelar</button>
+          </div>
+        </div>
+        
+    </form>
+  </div>
+  
+  <div *ngIf="msgPremiumAccount" class="alert alert-success" role="alert">
+    Tu periodo premium ha terminado pero no te preocupes <strong>ninguno de tus datos ha sido borrado*</strong>, puedes renovar en un plan más económico para tener acceso a las características propias del plan. también puedes <a [routerLink]="['/private', 'dashboard', 'contact']" class="alert-link">contactarnos</a> para revisar tus necesidades de forma personalizada.
+    <br><small class="text-muted">*Tus datos se almacenan durante 3 meses, si no renuevas tu plan o tu cuenta no tiene actividad serán eliminados.</small>
+  </div>
+  
+  <!-- View Card -->
+  <div *ngIf="viewCard && !editFlag && numberNotesCreated > 0" class="mb-3 animate__animated animate__fadeIn">
+    <div class="card-body">
+      <div class="row">
+        
+        <div *ngFor="let note of notes" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 my-2">
+          <div class="card h-100 rounded-0 shadow-sm">
+  
+            <div class="card-header">
+                <div class="text-end">
+                  <span *ngIf="note.priority === 'clow'" class="badge bg-success align-middle"><small><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></small></span>
+                  <span *ngIf="note.priority === 'bmedium'" class="badge bg-warning text-dark align-middle"><small><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></small></span>
+                  <span *ngIf="note.priority === 'ahigh'" class="badge bg-danger align-middle"><small><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></small></span>
+                </div>
+            </div>
+  
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title">{{ note.title }}</h5>
+                </div>
+              </div>
+              <h6 class="card-subtitle mb-2 text-muted">{{ note.subtitle }}</h6>
+              <p class="card-text">{{ note.text }}</p>
+              <a [href]="note.link" class="card-link" target="_blank">{{ note.textLink }}</a>
+            </div>
+            <div class="row">
+              <div class="col text-end">
+                <button (click)="loadNote( note )" class="my-2 btn btn-outline-info btn-sm"><i class="bi bi-pencil"></i></button>
+                <button (click)="deleteNote( note )" class="my-2 mx-2 btn bg-orange text-white btn-sm"><i class="bi bi-x-circle"></i></button>
+              </div>
+            </div>
+  
+  
+            <div class="card-footer text-muted">
+              <small class="text-muted">Creada el: {{ note.creationDate }}</small>
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- View List -->
+  <div *ngIf="viewList && !editFlag && numberNotesCreated > 0" class="card mb-3 animate__animated animate__fadeIn">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Prioridad</th>
+                    <th>Nota</th>
+                    <th>Fecha</th>
+                    <th>Editar</th>
+                    <th>Borrar</th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let note of notes">
+                    <td>
+                      <span *ngIf="note.priority === 'clow'" class="badge bg-success align-middle"><small><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></small></span>
+                      <span *ngIf="note.priority === 'bmedium'" class="badge bg-warning text-dark align-middle"><small><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></small></span>
+                      <span *ngIf="note.priority === 'ahigh'" class="badge bg-danger align-middle"><small><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></small></span>
+                    </td>
+                    <td>{{ note.title }}</td>
+                    <td>{{ note.creationDate }}</td>
+                    <td><button (click)="loadNote( note )" class="btn btn-sm bg-bp-green text-white rounded-0"><i class="bi bi-pencil"></i></button></td>
+                    <td><button (click)="deleteNote( note )" class="btn btn-sm bg-orange text-white rounded-0"><i class="bi bi-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+  
+  <div *ngIf="numberNotesCreated === 0 && !editFlag" class="my-2 animate__animated animate__fadeIn">
+    <p class="fs-1 px-3 py-3 text-center">Todavía no tienes notas creadas ¡Crea tu primer nota!</p>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+
+.bg-contact-img{
+    /* background-image: url("/../../../assets/img/contact/sea.jpg"); */
+    background-image: url("../../../../assets/img/contact/bkg-contact.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

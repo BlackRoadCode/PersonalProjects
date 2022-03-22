@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+<!-- <app-subnavbar></app-subnavbar> -->
+
+<div class="content mb-5">
+    <div class="row me-0">
+
+        <!-- <div class="col-12">
+            <app-subnavbar></app-subnavbar>
+        </div> -->
+        <div [class]="this._dataService.columnSidebar">
+            <app-sidebar class=" d-none d-sm-block"></app-sidebar>
+        </div>
+
+        <div [class]="this._dataService.columnContent">
+
+            <div *ngIf="premiumUserMessage" class="alert alert-info mt-2" role="alert">
+                <button type="button" class="btn-close pe-3" data-bs-dismiss="alert"></button>
+                <small>Si eres usuario <strong>premium</strong> tu cuenta no ha sido activada por alguno de nuestros
+                    administradores, por lo que solo contarás con acceso a elementos y características del plan
+                    gratuito, sin embargo en <strong>máximo 24 horas</strong> tu cuenta estará activada y no perderás
+                    nada de lo que hayas guardado previamente, gracias por tu paciencia.</small> <br>
+                <small class="fw-bold fst-italic">Este mensaje desaparecerá automáticamente una vez que tu cuenta haya
+                    sido activada por un administrador.</small>
+                <div class="text-end">
+                    <button [routerLink]="['contact']" class="btn btn-danger mt-2 btn-sm">Mi pago tiene más de 24
+                        horas</button>
+                </div>
+
+            </div>
+
+            <router-outlet class="px-0 mx-0"></router-outlet>
+        </div>
+
+    </div>
+    <!-- <div class="row"> -->
+        <app-footer class="fixed-bottom"></app-footer>
+    <!-- </div> -->
+</div>
+
+<div class="mb-2">.</div>

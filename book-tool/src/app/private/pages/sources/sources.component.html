@@ -1,0 +1,109 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+  <div class="my-5 mb-3">
+          <div class="row ">
+              <div class="col mt-4">
+                <h3>Fuentes</h3>
+                <h3><small class="text-muted">Un control de fuentes.</small></h3>
+                <hr class="hr-elements bg-secondary mt-0">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                  <p class="fs-5">Mantén control y registro de todas tus fuentes ya sea que las vayas a incluir en tu obra como si no.</p>
+              </div>
+          </div>
+  </div>
+  
+  <div class="card mb-3 animate__animated animate__fadeIn">
+      <div class="card-body">
+  
+        <div class="text-center">
+          <div class="btn-group d-none d-md-block" role="group" aria-label="Basic radio toggle button group">
+            <input (click)="activateAddSource('webPageSource')" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-info" for="btnradio1">Página Web</label>
+          
+            <input (click)="activateAddSource('bookSource')" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-info" for="btnradio3">Libro</label>
+            
+            <input (click)="activateAddSource('reportSource')" type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-info" for="btnradio4">Informe</label>
+  
+            <input (click)="activateAddSource('scientificMagazineSource')" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-info" for="btnradio2">Revista Científica</label>
+            
+            <input (click)="activateAddSource('pictureSource')" type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+            <label class="btn btn-outline-info" for="btnradio5">Imagen</label>
+            
+            <input (click)="activateAddSource('pictureSource')" type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+            <label class="btn btn-outline-info" for="btnradio6"><i class="bi bi-three-dots"></i></label>
+          </div>
+  
+          <div class="d-md-none">
+            <select class="form-select" (change)="activateAddSourceMobile($event.target.value)">
+              <option selected>Selecciona el tipo de fuente a crear</option>
+              <option value="webPageSource">Página Web</option>
+              <option value="bookSource">Libro</option>
+              <option value="reportSource">Informe</option>
+              <option value="scientificMagazineSource">Revista Científica</option>
+              <option value="pictureSource">Imagen</option>
+            </select>
+          </div>
+        </div>
+  
+        <hr class="my-3">
+  
+        <!-- Lista de fuentes -->
+        <ng-container class="animate__animated animate__fadeIn" *ngIf="!webPageSource && !bookSource && !reportSource && !scientificMagazineSource && !pictureSource">        
+          
+          <h5 class="text-center">Referencias</h5>
+          
+          <bdi *ngIf="sources.length === 0">Sin fuentes...</bdi>
+  
+          <ul class="list-unstyled ps-5">
+            <!-- validar si se añaden más campos al objeto source no se muestren dependiendo del tipo de fuente -->
+            <li class="lh-lg" *ngFor="let source of sources; let i = index">
+  
+              <tr>
+                <td>
+                  <span (click)="editSource()" class="mx-1 badge rounded-pill bg-info cursor"><i class="bi bi-pencil"></i></span>
+                  <span (click)="deleteSource()" class="me-2 badge rounded-pill bg-orange cursor"><i class="bi bi-x-circle"></i></span>
+                </td>
+                <td>
+                  <bdi *ngFor="let author of source.authors">{{ author.lastName }} {{ author.initials }}<bdi *ngIf="source.authors.length > 1">,&nbsp;</bdi><bdi *ngIf="source.authors.length === 1">&nbsp;</bdi></bdi>
+                  <bdi>({{ source.publicationDate.year }}, {{ source.publicationDate.day }} {{ source.publicationDate.month | date:'MMMM' }})</bdi>.
+                  <i>{{ source.webPageTitle }}</i>. <bdi>{{ source.websiteName }}.
+                  <br><bdi class="indent"></bdi>
+                  {{ source.webPageUrl }}</bdi>
+                </td>
+              </tr>
+  
+              
+  
+            </li>
+          </ul>
+  
+        </ng-container>
+        
+        <!-- form in webpage-source.component.html -->
+        <app-webpage-source [webPageSourceFlag]="webPageSource" [user]="user"></app-webpage-source> 
+         
+         <!-- form in book-source.component.html -->
+         <app-book-source [bookSourceFlag]="bookSource" [user]="user"></app-book-source>
+          
+          <!-- <ng-container class="animate__animated animate__fadeIn" *ngIf="reportSource" #reportSource>
+            <h5 class="text-center my-3">Informe</h5>
+          </ng-container>
+          
+          <ng-container class="animate__animated animate__fadeIn" *ngIf="scientificMagazineSource" #scientificMagazineSource>
+           <h5 class="text-center my-3">Artículo de revista Científica</h5>
+          </ng-container>
+  
+         <ng-container class="animate__animated animate__fadeIn" *ngIf="pictureSource" #pictureSource>
+          <h5 class="text-center my-3">Imagen</h5>
+         </ng-container> -->
+  
+      </div>
+  </div>
+
+</div>

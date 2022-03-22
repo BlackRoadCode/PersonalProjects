@@ -1,0 +1,365 @@
+<div class="container-fluid mt-5 mb-3">
+    <div class="row">
+        <div class="card my-2 animate__animated animate__fadeIn">
+            <div class="card-body">
+                <h4>Ficha del personaje <small class="text-muted">{{ characterName }}</small></h4>
+                
+                <div class="card my-2">
+                    <div class="card-body">
+                        
+                        <div class="sticky-top top-13 row my-2 bg-blur">
+                            <div class="col-lg-6 col-md-6 d-none d-sm-block">
+                                <div class="alert alert-info" role="alert">
+                                    <small>
+                                        Recuerda que la creación de tus personajes es un proceso <strong>infinito</strong>, puedes editarlo cuando quieras y de hecho te recomendamos hacerlo según avance tu obra.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 align-middle">
+                                <div class="text-center my-3">
+                                    <button *ngIf="action === 'new'" class="btn btn-info text-white me-1 rounded-0" (click)="saveCharacter()" [disabled]="physicalAspects.invalid">Guardar</button>
+                                    <button *ngIf="action !== 'new'" class="btn btn-info text-white me-1 rounded-0" (click)="editCharacter()" >Editar</button>
+                                    <button class="btn btn-danger text-white rounded-0" routerLink="/private/dashboard/characters/" >Cancelar</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 align-middle">
+                                <div class="text-center">
+                                    <button routerLink="/private/dashboard/characters/" class="btn bg-secondary text-white my-3 rounded-0">Regresar a personajes</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-header mb-3 bg-info text-white">
+                            <h5>Aspectos Físicos</h5>
+                        </div>
+        
+                        <form [formGroup]="charactersForm">
+                            <div formGroupName="physicalAspects" >
+                                <div class="row">
+                                    <div appNgDropFiles [files]="files" [ngClass]="{'file-over':isOverDrop}" (mouseOver)="isOverDrop = $event" (droped)="isDropped = $event" class="mb-3 col-2 text-center drop-zone">
+        
+                                        <img *ngIf="characterImage != '' && !isDropped" class="img-fluid" [src]="characterImage" alt="">
+                                        <img *ngIf="characterImage == '' && !isDropped" class="img-fluid" src="assets/img/generals/save-image-placeholderb.jpg" alt="">
+                                        
+                                        <!-- Imagen correcta dropeada -->
+                                        <img *ngIf="isDropped && files.length > 0" class="img-fluid" src="assets/img/generals/file-success.png" alt="">
+                                        <!-- imagen incorrecta dropeada -->
+                                        <img *ngIf="isDropped && files.length === 0" class="img-fluid" src="assets/img/generals/file-error.png" alt="">
+                                        <p *ngIf="isDropped && files.length === 0" class="text-danger"><small>Imagen no válida, favor de validar el peso de la imagen.</small></p>
+                                    </div> 
+                                    
+                                    <div class="mb-3 col-5">
+                                        <label for="characterName" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="characterName" formControlName="name">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+        
+                                        <label for="characterAge" class="form-label">Edad</label>
+                                        <input type="text" class="form-control" id="characterAge" formControlName="age">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-5">
+                                        <label for="briefDescription" class="form-label">Breve descripción del personaje</label>
+                                        <textarea class="form-control" id="briefDescription" rows="5" formControlName="briefDescription"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="mb-3 col-3">
+                                        <label for="characterHeight" class="form-label">Estatura</label>
+                                        <input type="text" class="form-control" id="characterHeight" formControlName="height">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+            
+                                    </div>
+                                    <div class="mb-3 col-3">
+                                        <label for="characterWeight" class="form-label">Peso</label>
+                                        <input type="text" class="form-control" id="characterWeight" formControlName="weight">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+        
+                                    <div class="mb-3 col-3">
+                                        <label for="characterEyeColor" class="form-label">Color de ojos</label>
+                                        <input type="text" class="form-control" id="characterEyeColor" formControlName="eyeColor">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+        
+                                    <div class="mb-3 col-3">
+                                        <label for="characterRace" class="form-label">Raza</label>
+                                        <input type="text" class="form-control" id="characterRace" formControlName="race">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+        
+                                <div class="row">    
+                                    <div class="mb-3 col-3">
+                                        <label for="characterHairColor" class="form-label">Color de cabello</label>
+                                        <input type="text" class="form-control" id="characterHairColor" formControlName="hairColor">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-3">
+                                        <label for="characterGender" class="form-label">Género</label>
+                                        <input type="text" class="form-control" id="characterGender" formControlName="gender">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+        
+                                    <div class="mb-3 col-3">
+                                        <label for="characterBodyBuild" class="form-label">Contextura</label>
+                                        <input type="text" class="form-control" id="characterBodyBuild" formControlName="bodyBuild">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+        
+                                    <div class="mb-3 col-3">
+                                        <label for="characterSkinColor" class="form-label">Color de piel</label>
+                                        <input type="text" class="form-control" id="characterSkinColor" formControlName="skinColor">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+        
+                                </div>
+        
+                                <div class="row">                            
+                                    <div class="mb-3 col-12">
+                                        <label for="characterFaceDetails" class="form-label">Detalles del rostro</label>
+                                        <textarea class="form-control" id="characterFaceDetails" rows="2" formControlName="faceDetails"></textarea>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <h5>Voz</h5>
+                                    <div class="mb-3 col-4">
+                                        <label for="characterVoiceIntensity" class="form-label">Intensidad</label>
+                                        <input type="text" class="form-control" id="characterVoiceIntensity" formControlName="voiceIntensity">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-4">
+                                        <label for="characterWhistleVoice" class="form-label">Timbre</label>
+                                        <input type="text" class="form-control" id="characterWhistleVoice" formControlName="whistleVoice">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-4">
+                                        <label for="characterVoiceTone" class="form-label">Tono</label>
+                                        <input type="text" class="form-control" id="characterVoiceTone" formControlName="voiceTone">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                </div>
+        
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <h5>Salud</h5>
+                                        <textarea class="form-control" id="characterHealth" rows="3" formControlName="health"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <h5>Detalles característicos</h5>
+                                        <textarea class="form-control" id="characteristicDetails" rows="3" formControlName="characteristicDetails"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <h5>Notas extras</h5>
+                                    <div class="mb-3 col-12">
+                                        <label for="extraNotes" class="form-label">Descripción general de su
+                                            salud</label>
+                                        <textarea class="form-control" id="extraNotes" rows="2" formControlName="extraNotes"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header mb-3 bg-info text-white">
+                                <h5>Aspectos Psicológicos</h5>
+                            </div>
+        
+                            <div formGroupName="psychologicalAspects" >
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="psychopathicDisorders" class="form-label">Transtornos psicopáticos</label>
+                                        <textarea class="form-control" id="psychopathicDisorders" rows="2" formControlName="psychopathicDisorders"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="sexLife" class="form-label">Vida Sexual</label>
+                                        <textarea class="form-control" id="sexLife" rows="2" formControlName="sexLife"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+            
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="moralEthicalStandards" class="form-label">Normas morales y éticas</label>
+                                        <textarea class="form-control" id="moralEthicalStandards" rows="2" formControlName="moralEthicalStandards"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-6">
+                                        <label for="ambitions" class="form-label">Ambiciones</label>
+                                        <textarea class="form-control" id="ambitions" rows="2" formControlName="ambitions"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+        
+                                </div>
+        
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="temperament" class="form-label">Temperamento</label>
+                                        <textarea class="form-control" id="temperament" rows="2" formControlName="temperament"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="character" class="form-label">Carácter</label>
+                                        <textarea class="form-control" id="character" rows="2" formControlName="character"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+            
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="attitudeLife" class="form-label">Actitud frente a la vida</label>
+                                        <textarea class="form-control" id="attitudeLife" rows="2" formControlName="attitudeLife"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="complexesInhibitions" class="form-label">Complejos-Inhibiciones</label>
+                                        <textarea class="form-control" id="complexesInhibitions" rows="2" formControlName="complexesInhibitions"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+            
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="disappointments" class="form-label">Desengaños</label>
+                                        <textarea class="form-control" id="disappointments" rows="2" formControlName="disappointments"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="intellectualQualitiesDifficulties" class="form-label">Cualidades y/o dificultades
+                                            intelectuales</label>
+                                        <textarea class="form-control" id="intellectualQualitiesDifficulties" rows="2" formControlName="intellectualQualitiesDifficulties"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="card-header mb-3 bg-info text-white">
+                                <h5>Aspectos Sociales</h5>
+                            </div>
+        
+                            <div formGroupName="socialAspects" >
+                                <div class="row">
+                                    <div class="mb-3 col-3">
+                                        <label for="nationality" class="form-label">Nacionalidad</label>
+                                        <input type="text" class="form-control" id="nationality" formControlName="nationality">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-3">
+                                        <label for="religion" class="form-label">Religión</label>
+                                        <input type="text" class="form-control" id="religion" formControlName="religion">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-3">
+                                        <label for="socialStratum" class="form-label">Estrato social</label>
+                                        <input type="text" class="form-control" id="socialStratum" formControlName="socialStratum">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-3">
+                                        <label for="civilStatus" class="form-label">Estado Civil</label>
+                                        <input type="text" class="form-control" id="civilStatus" formControlName="civilStatus">
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+            
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="sociability" class="form-label">Sociabilidad</label>
+                                        <textarea class="form-control" id="sociability" rows="2" formControlName="sociability"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="job" class="form-label">Empleo</label>
+                                        <textarea class="form-control" id="job" rows="2" formControlName="job"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="education" class="form-label">Educación</label>
+                                        <textarea class="form-control" id="education" rows="2" formControlName="education"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="familyLife" class="form-label">Vida familiar</label>
+                                        <textarea class="form-control" id="familyLife" rows="2" formControlName="familyLife"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="politicalIdeas" class="form-label">Ideas políticas</label>
+                                        <textarea class="form-control" id="politicalIdeas" rows="2" formControlName="politicalIdeas"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="economicStatus" class="form-label">Estado económico</label>
+                                        <textarea class="form-control" id="economicStatus" rows="2" formControlName="economicStatus"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="sportsHobbies" class="form-label">Aficiones deportivas</label>
+                                        <textarea class="form-control" id="sportsHobbies" rows="2" formControlName="sportsHobbies"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="home" class="form-label">Hogar</label>
+                                        <textarea class="form-control" id="home" rows="2" formControlName="home"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="hobbies" class="form-label">Pasatiempos</label>
+                                        <textarea class="form-control" id="hobbies" rows="2" formControlName="hobbies"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+            
+                                    <div class="mb-3 col-6">
+                                        <label for="travels" class="form-label">Viajes</label>
+                                        <textarea class="form-control" id="travels" rows="2" formControlName="travels"></textarea>
+                                        <div class="form-text">Algún texto de apoyo para el campo</div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </form>
+        
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
+

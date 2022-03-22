@@ -1,0 +1,95 @@
+<h2 class="my-5">{{ '' | translate }}</h2>
+
+<div class="row">
+  <div class="col col-md-2 offset-md-3">
+    <h4 for="customRange2" class="text-start">{{ 'pricing.pricesTable.plans.month' | translate }}</h4>
+  </div>
+  <div class="col col-md-2">
+    <h4 for="customRange2" class="text-center">{{ 'pricing.pricesTable.plans.biannual' | translate }}</h4>
+  </div>
+  <div class="col col-md-2">
+    <h4 for="customRange2" class="text-end">{{ 'pricing.pricesTable.plans.annual' | translate }}</h4>
+  </div>
+  
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3">
+    <input type="range" class="form-range" min="0" max="2" [value]="valorRango" [(ngModel)]='valorRango' >
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 mt-3">
+    <div class="col mt-3">
+      <div class="card h-100">
+        <div class="animate__animated animate__fadeIn"><h4 class="card-header">Características</h4></div>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{ 'pricing.pricesTable.card.first.title' | translate }}</h5>
+          <p class="card-text" [innerHTML]="'pricing.pricesTable.card.first.text' | translate"></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{ 'pricing.pricesTable.card.first.footer' | translate }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col mt-3">
+      <div class="card h-100">
+
+        <div class="animate__animated animate__fadeIn" *ngIf="valorRango == 0"><h4 class="card-header">$3 USD <small>Mensual</small></h4></div>
+        <div class="animate__animated animate__fadeIn" *ngIf="valorRango == 1"><h4 class="card-header">$18 USD <small>Semestral</small></h4></div>
+        <div class="animate__animated animate__fadeIn" *ngIf="valorRango == 2"><h4 class="card-header">$24 USD <small>Anual</small></h4></div>
+
+        <div class="card-body">
+          <h5 class="card-title">{{ 'pricing.pricesTable.card.second.title' | translate }}</h5>
+          <p class="card-text" [innerHTML]="'pricing.pricesTable.card.second.text' | translate"></p>
+        </div>
+        <div class="card-footer">
+          <small *ngIf="valorRango == 0" class="text-muted">$3 USD por mes</small>
+          <small *ngIf="valorRango == 1" class="text-muted">$3 USD por mes</small>
+          <small *ngIf="valorRango == 2" class="text-muted">$3 USD por mes</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col mt-3">
+      <div class="card h-100">
+
+        <div class="animate__animated animate__fadeIn" *ngIf="valorRango == 0"><h4 class="card-header">$4 USD <small>Mensual</small></h4></div>
+        <div class="animate__animated animate__fadeIn" *ngIf="valorRango == 1"><h4 class="card-header">$21 USD <small>Semestral</small></h4></div>
+        <div class="animate__animated animate__fadeIn" *ngIf="valorRango == 2"><h4 class="card-header">$42 USD <small>Anual</small></h4></div>
+
+        <div class="card-body">
+          <h5 class="card-title">{{ 'pricing.pricesTable.card.third.title' | translate }}</h5>
+          <p class="card-text" [innerHTML]="'pricing.pricesTable.card.third.text' | translate"></p>
+        </div>
+        <div class="card-footer">
+          <small *ngIf="valorRango == 0" class="text-muted">$4 USD por mes</small>
+          <small *ngIf="valorRango == 1" class="text-muted">$3.5 USD por mes</small>
+          <small *ngIf="valorRango == 2" class="text-muted">$3.5 USD por mes</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col mt-3">
+      <div class="card h-100">
+        <div class="animate__animated animate__fadeIn bg-success text-white" *ngIf="valorRango == 0"><h4 class="card-header">$5 USD <small>Mensual</small></h4></div>
+        <div class="animate__animated animate__fadeIn bg-success text-white" *ngIf="valorRango == 1"><h4 class="card-header">$27 USD <small>Semestral</small></h4></div>
+        <div class="animate__animated animate__fadeIn bg-success text-white" *ngIf="valorRango == 2"><h4 class="card-header">$48 USD <small>Anual</small></h4></div>
+
+        <div class="card-body">
+          <h5 class="card-title">{{ 'pricing.pricesTable.card.fourth.title' | translate }}</h5>
+          <p class="card-text" [innerHTML]="'pricing.pricesTable.card.fourth.text' | translate"></p>
+        </div>
+        <div class="card-footer bg-success text-white">
+          <small *ngIf="valorRango == 0">$5 USD por mes</small>
+          <small *ngIf="valorRango == 1">$4.5 USD por mes</small>
+          <small *ngIf="valorRango == 2">$4 USD por mes</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <p class="my-5">{{ 'pricing.expText' | translate }}</p>

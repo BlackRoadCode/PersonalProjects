@@ -1,0 +1,224 @@
+<div class="container-fluid mt-5 mb-3">
+    <div class="card my-2 animate__animated animate__fadeIn">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Hoja de personaje: <small class="text-muted">{{ character.physicalAspects.name }}</small></h3>
+                </div>
+                <div class="col-6 align-middle">
+                    <div class="">
+                        <button *ngIf="exportCharacter" (click)="exportAsPDF(fileName)" class="btn btn-danger text-white me-1 rounded-0">PDF <i class="bi bi-download"></i></button>
+                        <button *ngIf="exportCharacter" (click)="exportAsDOCX( fileName )" class="btn btn-primary me-1 rounded-0">Word (docx) <i class="bi bi-download"></i></button>
+    
+                        <button *ngIf="!exportCharacter" (click)="getPremium()" class="btn btn-danger text-white me-1 rounded-0"><i class="bi bi-lock"></i> PDF <i class="bi bi-download"></i></button>
+                        <button *ngIf="!exportCharacter" (click)="getPremium()" class="btn btn-primary me-1 rounded-0"><i class="bi bi-lock"></i> <i class="bi bi-file-text"></i> Word (docx) <i class="bi bi-download"></i></button>
+                        
+                        <button routerLink="/private/dashboard/characters/" class="btn bg-secondary text-white ms-1 rounded-0">Regresar a personajes</button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card my-2 animate__animated animate__fadeIn">
+        <div id="quill-editor-content" class="card-body"> 
+    
+            <!-- Elementos físicos -->
+            <div class="row">
+                    <div class="col-3 text-center">
+                        <!-- {{ character.characterImage }} -->
+                        <img *ngIf="character.characterImage !== ''" class="rounded img-fluid my-3" src="{{ character.characterImage }}" alt="{{ character.physicalAspects.name }}">
+                        <img *ngIf="character.characterImage === ''" class="rounded img-fluid my-3" src="assets/img/generals/no-avatar.png" alt="{{ character.physicalAspects.name }}">
+                    </div>
+        
+                    <div class="col-9">
+                        <h3>{{ character.physicalAspects.name }}</h3>
+                        <p>{{ character.physicalAspects.briefDescription }}</p>
+        
+                        <div class="bg-primary text-center text-white">
+                            <h5 class="py-2">Aspectos físicos</h5>
+                        </div>
+        
+                        <div class="row" *ngIf="character.physicalAspects.age !== '' || character.physicalAspects.height !== '' || character.physicalAspects.weight !== ''">
+                            <div *ngIf="character.physicalAspects.age !== ''" class="col text-center"><p><bdi class="fw-bold">Edad:</bdi> {{ character.physicalAspects.age }}</p></div>
+                            <div *ngIf="character.physicalAspects.height !== ''" class="col text-center"><p><bdi class="fw-bold">Estatura:</bdi> {{ character.physicalAspects.height }}</p></div>
+                            <div *ngIf="character.physicalAspects.weight !== ''" class="col text-center"><p><bdi class="fw-bold">Peso:</bdi> {{ character.physicalAspects.weight }}</p></div>
+                            <hr>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.physicalAspects.gender !== '' || character.physicalAspects.race !== '' || character.physicalAspects.eyeColor !== ''">
+                            <div *ngIf="character.physicalAspects.gender !== ''" class="col text-center"><p><bdi class="fw-bold">Género:</bdi> {{ character.physicalAspects.gender }}</p></div>
+                            <div *ngIf="character.physicalAspects.race !== ''" class="col text-center"><p><bdi class="fw-bold">Raza:</bdi> {{ character.physicalAspects.race }}</p></div>
+                            <div *ngIf="character.physicalAspects.eyeColor !== ''" class="col text-center"><p><bdi class="fw-bold">Color de ojos:</bdi> {{ character.physicalAspects.eyeColor }}</p></div>
+                            <hr>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.physicalAspects.hairColor !== '' || character.physicalAspects.bodyBuild !== '' || character.physicalAspects.skinColor !== ''">
+                            <div *ngIf="character.physicalAspects.hairColor !== ''" class="col text-center"><p><bdi class="fw-bold">Color de cabello:</bdi> {{ character.physicalAspects.hairColor }}</p></div>
+                            <div *ngIf="character.physicalAspects.bodyBuild !== ''" class="col text-center"><p><bdi class="fw-bold">Contextura:</bdi> {{ character.physicalAspects.bodyBuild }}</p></div>
+                            <div *ngIf="character.physicalAspects.skinColor !== ''" class="col text-center"><p><bdi class="fw-bold">Color de piel:</bdi> {{ character.physicalAspects.skinColor }}</p></div>
+                            <hr>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.physicalAspects.faceDetails !== ''">
+                            <div class="col text-center"><p><bdi class="fw-bold">Detalles del rostro:</bdi> {{ character.physicalAspects.faceDetails }}</p></div>
+                            <hr>
+                        </div>
+        
+                        <div *ngIf="character.physicalAspects.voiceIntensity !== '' || character.physicalAspects.whistleVoice !== '' || character.physicalAspects.voiceTone !== ''" class="row">
+                            <div *ngIf="character.physicalAspects.voiceIntensity !== ''" class="col text-center"><p><bdi class="fw-bold">Intensidad de la voz:</bdi> {{ character.physicalAspects.voiceIntensity }}</p></div>
+                            <div *ngIf="character.physicalAspects.whistleVoice !== ''" class="col text-center"><p><bdi class="fw-bold">Timbre de voz:</bdi> {{ character.physicalAspects.whistleVoice }}</p></div>
+                            <div *ngIf="character.physicalAspects.voiceTone !== ''" class="col text-center"><p><bdi class="fw-bold">Tono de voz:</bdi> {{ character.physicalAspects.voiceTone }}</p></div>
+                            <hr>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.physicalAspects.health !== '' || character.physicalAspects.characteristicDetails !== '' || character.physicalAspects.extraNotes !== ''">
+                            <div *ngIf="character.physicalAspects.health !== ''" class="col text-center"><p><bdi class="fw-bold">Salud:</bdi> {{ character.physicalAspects.health }}</p></div>
+                            <div *ngIf="character.physicalAspects.characteristicDetails !== ''" class="col text-center"><p><bdi class="fw-bold">Detalles Característicos:</bdi> {{ character.physicalAspects.characteristicDetails }}</p></div>
+                            <div *ngIf="character.physicalAspects.extraNotes !== ''" class="col text-center"><p><bdi class="fw-bold">Notas extra:</bdi> {{ character.physicalAspects.extraNotes }}</p></div>
+                        </div>
+                        
+                    </div>
+            </div>
+                
+            <!-- Elementos psicológicos y sociales -->
+            <div class="row">
+                    <div class="col-6">
+                        <div class="bg-primary text-center text-white">
+                            <h5 class="py-2">Aspectos psicológicos</h5>
+                        </div>
+        
+                        <div *ngIf="character.psychologicalAspects.psychopathicDisorders !== '' || character.psychologicalAspects.sexLife !== ''" class="row">
+                            <div *ngIf="character.psychologicalAspects.psychopathicDisorders !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Trastornos psicopáticos:</bdi> {{ character.psychologicalAspects.psychopathicDisorders }}</p></div>
+                            </div>
+                            
+                            <div *ngIf="character.psychologicalAspects.sexLife !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Vida sexual:</bdi> {{ character.psychologicalAspects.sexLife }}</p></div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.psychologicalAspects.moralEthicalStandards !== '' || character.psychologicalAspects.ambitions !== ''">
+                            <div *ngIf="character.psychologicalAspects.moralEthicalStandards !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Normas morales y éticas:</bdi> {{ character.psychologicalAspects.moralEthicalStandards }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.psychologicalAspects.ambitions !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Ambiciones:</bdi> {{ character.psychologicalAspects.ambitions }}</p></div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.psychologicalAspects.temperament !== '' || character.psychologicalAspects.character !== ''">
+                            <div *ngIf="character.psychologicalAspects.temperament !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Temperamento:</bdi> {{ character.psychologicalAspects.temperament }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.psychologicalAspects.character !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Carácter:</bdi> {{ character.psychologicalAspects.character }}</p></div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.psychologicalAspects.attitudeLife !== '' || character.psychologicalAspects.complexesInhibitions !== ''">
+                            <div *ngIf="character.psychologicalAspects.attitudeLife !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Actitud frente a la vida:</bdi> {{ character.psychologicalAspects.attitudeLife }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.psychologicalAspects.complexesInhibitions !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Complejos/Inhibiciones:</bdi> {{ character.psychologicalAspects.complexesInhibitions }}</p></div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" *ngIf="character.psychologicalAspects.disappointments !== '' || character.psychologicalAspects.intellectualQualitiesDifficulties !== ''">
+                            <div *ngIf="character.psychologicalAspects.disappointments !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Desengaños:</bdi> {{ character.psychologicalAspects.disappointments }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.psychologicalAspects.intellectualQualitiesDifficulties !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Cualidades y/o dificultades intelectuales:</bdi> {{ character.psychologicalAspects.intellectualQualitiesDifficulties }}</p></div>
+                            </div>
+                        </div>
+        
+                    </div>
+        
+                    <div class="col-6">
+                        <div class="bg-primary text-center text-white">
+                            <h5 class="py-2">Aspectos sociales</h5>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col" *ngIf="character.socialAspects.nationality !== '' || character.socialAspects.socialStratum !== ''">
+                                <div *ngIf="character.socialAspects.nationality !== ''" class="col text-center"><p><bdi class="fw-bold">Nacionalidad:</bdi> {{ character.socialAspects.nationality }}</p></div>
+                                <div *ngIf="character.socialAspects.socialStratum !== ''" class="col text-center"><p><bdi class="fw-bold">Estrato social:</bdi> {{ character.socialAspects.socialStratum }}</p></div>
+                            </div>
+        
+                            <div class="col" *ngIf="character.socialAspects.religion !== '' || character.socialAspects.civilStatus !== ''">
+                                <div *ngIf="character.socialAspects.religion !== ''" class="col text-center"><p><bdi class="fw-bold">Religión:</bdi> {{ character.socialAspects.religion }}</p></div>
+                                <div *ngIf="character.socialAspects.civilStatus !== ''" class="col text-center"><p><bdi class="fw-bold">Estado civil:</bdi> {{ character.socialAspects.civilStatus }}</p></div>
+                            </div>
+                        </div>
+        
+                        <div class="row" *ngIf="character.socialAspects.sociability !== '' || character.socialAspects.job !== ''">
+                            <div class="col">
+                                <div *ngIf="character.socialAspects.sociability !== ''" class="col text-center"><p><bdi class="fw-bold">Sociabilidad:</bdi> {{ character.socialAspects.sociability }}</p></div>
+                            </div>
+        
+                            <div class="col">
+                                <div *ngIf="character.socialAspects.job !== ''" class="col text-center"><p><bdi class="fw-bold">Empleo:</bdi> {{ character.socialAspects.job }}</p></div>
+                            </div>
+                        </div>
+        
+                        <div class="row" *ngIf="character.socialAspects.education !== '' || character.socialAspects.familyLife !== ''">
+                            <div class="col">
+                                <div *ngIf="character.socialAspects.education !== ''" class="col text-center"><p><bdi class="fw-bold">Educación:</bdi> {{ character.socialAspects.education }}</p></div>
+                            </div>
+        
+                            <div class="col">
+                                <div *ngIf="character.socialAspects.familyLife !== ''" class="col text-center"><p><bdi class="fw-bold">Vida familiar:</bdi> {{ character.socialAspects.familyLife }}</p></div>
+                            </div>
+                        </div>
+        
+                        <div class="row" *ngIf="character.socialAspects.politicalIdeas !== '' || character.socialAspects.economicStatus !== ''">
+                            <div *ngIf="character.socialAspects.politicalIdeas !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Ideas políticas:</bdi> {{ character.socialAspects.politicalIdeas }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.socialAspects.economicStatus !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Estado económico:</bdi> {{ character.socialAspects.economicStatus }}</p></div>
+                            </div>
+                        </div>
+        
+                        <div class="row" *ngIf="character.socialAspects.sportsHobbies !== '' || character.socialAspects.home !== ''">
+                            <div *ngIf="character.socialAspects.sportsHobbies !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Aficiones deportivas:</bdi> {{ character.socialAspects.sportsHobbies }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.socialAspects.home !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Hogar:</bdi> {{ character.socialAspects.home }}</p></div>
+                            </div>
+                        </div>
+        
+                        <div class="row" *ngIf="character.socialAspects.hobbies !== '' || character.socialAspects.travels !== ''">
+                            <div *ngIf="character.socialAspects.hobbies !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Pasatiempos:</bdi> {{ character.socialAspects.hobbies }}</p></div>
+                            </div>
+        
+                            <div *ngIf="character.socialAspects.travels !== ''" class="col">
+                                <div class="col text-center"><p><bdi class="fw-bold">Viajes:</bdi> {{ character.socialAspects.travels }}</p></div>
+                            </div>
+                        </div>
+        
+                    </div>
+            </div>
+    
+            <div class="row mt-2 d-print-none">
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        <h6 class="alert-heading">Nota importante</h6>
+                        Los campos que se muestran en esta vista son los que contienen datos, si no ves algún campo es porque en tu ficha de edición no lo has llenado.
+                      </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+{
+    "publicNavbar":{
+        "about":"About us",
+        "features":"Features",
+        "pricing":"Pricing",
+        "contact":"Contact",
+        "login":"Login",
+        "register":"Sign&nbsp;up",
+        "logout":"Logout",
+        "comments":"Comments",
+        "account":"My account"
+    },
+    "home":{
+        "carousel":{
+            "first":{
+                "title":"First Slide Title",
+                "paragraph":"First slide P."
+            },
+            "second":{
+                "title":"Second Slide Title",
+                "paragraph":"Second slide P."
+            },
+            "third":{
+                "title":"Third Slide Title",
+                "paragraph":"Third slide P."
+            }
+        },
+        "features":{
+            "title":"Features",
+            "paragraphA":"Begins paragraph width something in english consectetur adipisicing elit. Tempore eaque architecto accusantium impedit dolores. Modi, natus corrupti, sapiente dicta veritatis porro non aliquam, laudantium ex repellat consequatur minima? Numquam, ipsum.",
+            "paragraphB":"Lorem ipsum dolor <b>embedded HTML in english</b> consectetur adipisicing elit. Ut eligendi libero.",
+            "characteristics":{
+                "first":"Characteristic eng 1",
+                "second":"Characteristic eng 2",
+                "third":"Characteristic eng 3",
+                "quarter":"Characteristic eng 4",
+                "fifth":"Characteristic eng 5",
+                "sixth":"Characteristic eng 6",
+                "seventh":"Characteristic eng 7",
+                "eigth":"Characteristic eng 8"
+            }
+        },
+        "detailedFeatures":{
+            "tab1":{
+                "title":"Characters",
+                "paragraph":"Keep a character sheet for each one you have, keep the lore of your story as a separate universe ."
+            },
+            "tab2":{
+                "title":"Timeline",
+                "paragraph":"Do not lose track of your dates or important knots, forget about the original failures and have a timeline as support ."
+            },
+            "tab3":{
+                "title":"Notes & Inspiration",
+                "paragraph":"Keep all the notes and inspirations that come to mind at hand, complement your work with dates, data and relevant facts that you can then integrate as you see fit."
+            },
+            "tab4":{
+                "title":"And much more...",
+                "paragraph":"Everything you need to create a robust work, the next great story is in your mind."
+            }
+        },
+        "resources":{
+            "button":"Writer Resources"
+        },
+        "ready":{
+            "title":"Ready to start creating?",
+            "button":"Create Account"
+        }
+    },
+    "features":{},
+    "pricing":{
+        "firstRow":{
+            "title":"Pricing",
+            "subtitle":"A tool available to everyone ",
+            "paragraph":"Starts in english ipsum dolor sit amet consectetur adipisicing elit. Nam aperiam odio natus maxime mollitia? Aspernatur commodi sapiente, in voluptas temporibus amet saepe beatae quibusdam, voluptates explicabo culpa reiciendis suscipit provident"
+        },
+        "pricesTable":{
+            "plans":{
+                "month":"Monthly",
+                "biannual":"Biannual",
+                "annual":"Annual"
+            },
+            "title":"Ready to start creating your best work? ",
+            "card":{
+                "first":{
+                    "title":"Free",
+                    "text":"Un libro o cuadernillo de estudio, 10 personajes",
+                    "footer":"Gratis por siempre."
+                },
+                "second":{
+                    "title":"Amateur Writer",
+                    "text":"Dos books",
+                    "footer":"Solo $30MXN por mes"
+                },
+                "third":{
+                    "title":"Proffesional writter",
+                    "text":"10 books",
+                    "footer":"Solo $45MXN por mes"
+                },
+                "fourth":{
+                    "title":"Period novelist ",
+                    "text":"20 books, descargar en PDF, personajes ilimitados",
+                    "footer":"Solo $99 por mes"
+                }
+            }
+        },
+        "expText":"Explanatory text of the prices and the advantages of switching to a payment plan"
+    },
+    "privateNavbar":{},
+    "blog":{},
+    "login":{},
+    "register":{},
+    "preFooter":{},
+    "footer":{},
+    "dashboard":{}
+
+}

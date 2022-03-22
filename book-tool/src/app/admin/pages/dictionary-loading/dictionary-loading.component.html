@@ -1,0 +1,139 @@
+<div class="col-12">
+    <h3 class="py-3">Carga de datos</h3>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs nav-justified bg-light-gray px-3" id="tabsHome" role="tablist">
+        <li class="nav-item my-3" role="presentation">
+            <a class="nav-link text-dark active" id="home-tab" data-bs-toggle="tab" href="#names" role="tab"
+                aria-controls="home" aria-selected="true">Nombres</a>
+        </li>
+        <li class="nav-item my-3" role="presentation">
+            <a class="nav-link text-dark" id="profile-tab" data-bs-toggle="tab" href="#lastnames" role="tab"
+                aria-controls="profile" aria-selected="false">Apellidos</a>
+        </li>
+        <li class="nav-item my-3" role="presentation">
+            <a class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" href="#diccionary" role="tab"
+                aria-controls="contact" aria-selected="false">Diccionario</a>
+        </li>
+        <li class="nav-item my-3" role="presentation">
+            <a class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" href="#genIds" role="tab"
+                aria-controls="contact" aria-selected="false">Generar IDs</a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <!-- Content -->
+    <div class="tab-content" id="myTabContent">
+
+        <!-- names tab -->
+        <div class="tab-pane fade show active" id="names" role="tabpanel" [formGroup]="namesForm">
+
+            <h6>Total de nombres femeninos: {{numFemaleNames}}</h6>
+            <h6>Total de nombres masculinos: {{numMaleNames}}</h6>
+
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="ID" formControlName="id">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Name" formControlName="name">
+                </div>
+                <div class="col-md-3">
+                    <select id="inputState" class="form-select" formControlName="origin">
+                        <option value="árabe">Árabe</option>
+                        <option value="bíblico">Bíblico</option>
+                        <option value="catalán">Catalán</option>
+                        <option value="germánico">Germánico</option>
+                        <option value="hebreo">Hebreo</option>
+                        <option value="latino">Latino</option>
+                    </select>
+                    <small class="text-muted">Origin</small>
+                </div>
+                <div class="col-md-3">
+                    <select id="inputState" class="form-select" formControlName="gender">
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                        <option value="u">Unisex</option>
+                    </select>
+                    <small class="text-muted">Gender</small>
+                </div>
+            </div>
+
+            <div class="row py-3">
+                <div class="col">
+                    <textarea class="form-control" placeholder="Meaning" id="exampleFormControlTextarea1" rows="3" formControlName="meaning"></textarea>
+                </div>
+            </div>
+
+            <div class="row py-3">
+                <div class="col text-end">
+                    <button (click)="cancelRegister('namesForm')" class="btn btn-danger text-white me-2">Cancelar</button>
+                    <button (click)="saveName()" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- lastnames tab -->
+        <div class="tab-pane fade" id="lastnames" role="tabpanel" [formGroup]="lastNamesForm">
+
+            <h6>Total de apellidos: {{ numLastNames }}</h6>
+
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="ID" formControlName="id">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname">
+                </div>
+                <div class="col-md-4">
+                    <select id="inputState" class="form-select" formControlName="lnorigin">
+                        <option value="unknown">Desconocido</option>
+                        <option value="árabe">Árabe</option>
+                        <option value="bíblico">Bíblico</option>
+                        <option value="catalán">Catalán</option>
+                        <option value="germánico">Germánico</option>
+                        <option value="hebreo">Hebreo</option>
+                        <option value="latino">Latino</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row py-3">
+                <div class="col">
+                    <textarea class="form-control" placeholder="Meaning" id="meaningTextArea" rows="3" formControlName="lnmeaning"></textarea>
+                </div>
+            </div>
+
+            <div class="row py-3">
+                <div class="col text-end">
+                    <button (click)="cancelRegister('lastNamesForm')" class="btn btn-danger text-white me-2">Cancelar</button>
+                    <button (click)="saveLastName()" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="diccionary" role="tabpanel" [formGroup]="dictionaryForm">
+            <div class="row mt-5">
+                formulario de diccionario
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="genIds" role="tabpanel" [formGroup]="sinAntForm">
+            <div class="row mt-5">
+                <button (click)="makeid()" class="btn btn-outline-danger">Generar IDs</button>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">IDs</h5>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let id of ids">{{ id }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>

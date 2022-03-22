@@ -1,0 +1,70 @@
+<div class="sidebar-mask"></div>
+<aside class="sidebar bg-light-gray">
+    <nav class="navbar navbar-expand d-flex flex-column align-item-start bg-light-gray pt-5 position-relative" id="sidebar">
+        <div class="text-center rounded-circle border-dark border-3">
+            <img class="img-fluid user-navbar-avatar mt-2 p-1" [src]="user.photoURL | image" [alt]="user.displayName || '' " width="100" height="100">
+        </div>
+    
+        <div>
+            <h3 class="text-dark display-6">{{ user.displayName || 'Username' }}</h3>
+        </div>
+    
+        <hr>
+        <ul class="navbar-nav d-flex flex-column w-100">
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a [routerLink]="['/private', 'home-dashboard']" routerLinkActive="active" class="nav-link text-dark mx-4"><i class="bi bi-house"></i> Dashboard</a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a routerLink="editor" class="nav-link text-dark mx-4"><i class="bi bi-book"></i> Obra <span class="badge bg-dark rounded-pill text-white">{{ numWorks }}</span></a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+    
+            <li class="nav-item w-100">
+                <a routerLink="characters" class="nav-link text-dark mx-4"><i class="bi bi-person"></i> Personajes
+                    <span class="badge bg-dark rounded-pill text-white">{{ numCharacters }}</span></a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a routerLink="notes" class="nav-link text-dark mx-4"><i class="bi bi-stickies"></i> Notas <span
+                        class="badge bg-dark rounded-pill text-white">{{ numNotes }}</span></a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a routerLink="sources" class="nav-link text-dark mx-4"><i class="bi bi-card-checklist"></i> Fuentes
+                    <span class="badge bg-dark rounded-pill text-white">{{ numSources }}</span></a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a routerLink="tasks" class="nav-link text-dark mx-4"><i class="bi bi-list-task"></i> Listas de Tareas
+                    <span class="badge bg-dark rounded-pill text-white">{{ numTaskLists }}</span></a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a routerLink="inspiration" class="nav-link text-dark mx-4"><i class="bi bi-star"></i> Inspiración
+                    <span class="badge bg-dark rounded-pill text-white">{{ numInspiations }}</span></a>
+            </li>
+            
+            <li><hr class="dropdown-divider ms-4 w-75"></li>
+            
+            <li class="nav-item w-100">
+                <a routerLink="time-line" class="nav-link text-dark mx-4"><i class="bi bi-calendar4-range"></i> Linea
+                    de tiempo <span class="badge bg-dark rounded-pill text-white">{{ numTimelines }}</span></a>
+            </li>
+        </ul>
+    </nav>
+</aside>

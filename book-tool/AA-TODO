@@ -1,0 +1,127 @@
+
+
+implementar guards admin, user y proteger
+login funcionalidad completa
+-añadir al usuario rol y datos extra
+traducir textos de login
+
+Validar ngTemplates para la tabla de precios
+creación de layout y contenido dummy para home.features
+traducción de strings para home.features
+creación de layout para dashboard user
+creción de dashboard para admin
+instalación de kolkov/angular-editor
+validar la forma de integrar un contador de palabras
+implementación de router-outlet para dashboard usuario (?)
+implementación de pasarela de pagos subscription (validar firebase, paypal, Mobbex, mercadopago, Rebill)
+
+
+Nombre original de la aplicación (auth) - project-317725224271
+
+
+********************* service login ********************* 
+
+constructor(public angularFireAuth:AngularFireAuth, private angularFirestore:AngularFirestore) { 
+    super();   
+
+    this.user$ = this.angularFireAuth.authState.pipe(
+      switchMap( (user) => {
+        if ( user ){
+          // return this.angularFirestore.doc<User>(`records/${ user.uid }`).valueChanges();
+          return this.angularFirestore.doc<User>(`records/${user.uid}/sc_userinfo/usr`).valueChanges();           
+        }
+        return of( null );
+      })
+    );
+   }
+
+async login( email: string, password: string ): Promise<User | string> {
+    try {
+      
+      const { user, additionalUserInfo } = await this.angularFireAuth.signInWithEmailAndPassword( email, password );      
+
+      if ( !additionalUserInfo.isNewUser && user.emailVerified ){
+        return user;
+      } else {
+        return user;
+      }
+
+      return 'emailNotValidated';
+
+    } catch ( error ) {
+      console.log('cae en error - login', error);
+      return error;
+    }
+  }
+
+  async loginGoogle(){
+    try {
+      const { user } = await this.angularFireAuth.signInWithPopup( new firebase.auth.GoogleAuthProvider() );
+
+      // if( this.userHasRecord(user) ){
+      //   this.createUserRecord( user );
+      //   return user;
+      // } else {          
+      //   return user;
+      // }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async register(email: string, password: string): Promise<User> {
+    try {
+
+      const { user, additionalUserInfo } = await this.angularFireAuth.createUserWithEmailAndPassword( email, password );
+
+      if( additionalUserInfo.isNewUser ){
+        this.createUserRecord( user );
+      }
+
+      // console.log('Esto trae user.email en el register: ', user.email);
+      // console.log('Falta el expiresIn');
+      // console.log('Esto trae user.getIdToken() en el register: ', user.getIdToken());
+      // console.log('Esto trae user.uid (posiblemente localId) en el register: ', user.uid);
+      // console.log('Esto trae user.refreshToken en el register: ', user.refreshToken);
+      // console.log('Esto trae user.metadata en el register: ', user.metadata);
+      // console.log('Esto trae user.providerId en el register: ', user.providerId);
+      // console.log('Esto trae additionalUserInfo.profile en el register: ', additionalUserInfo);
+
+      await this.sendVerificationEmail();
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+  private createUserRecord( user:User ){
+
+    const userRef : AngularFirestoreDocument<User> = this.angularFirestore.collection( 'records' ).doc(user.uid).collection('sc_userinfo').doc('usr');
+    // const userRef2 : AngularFirestoreDocument<any> = this.angularFirestore.collection( 'records' ).doc(user.uid).collection('sc_tasks').doc('listas').collection('identificalista').doc();
+
+    const data:User = { 
+      uid: user.uid,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      role: 'USER'
+    };
+
+    return userRef.set( data, { merge:true });
+  }
+
+
+**************************************************************************
+
+// Export from a specific path
+firestore-export -a bookPKey.json -b dictionarie.json --nodePath bpdata/es_dictionarie/a 
+
+// Import from a specific path
+firestore-import -a bookPKey.json -b insert-1.json --nodePath bpdata/es_dictionarie/a 
+
+
+/* Este container es el que daba espacio arriba del router-outlet y elementos de la parte privada del sitio */
+
+<div class="container"><div class="row"><div class="col my-4"></div></div></div>

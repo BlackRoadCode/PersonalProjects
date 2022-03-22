@@ -1,0 +1,12 @@
+.dropdown-divider{
+    height: 2px;
+    /* color: rgb(153,153,153); */
+    background: linear-gradient(275deg, rgba(153,153,153,1) 57%, rgba(255,255,255,1) 83%);
+
+}
+
+.mt-minus-5px{
+    margin-top: -5px;
+}
+
+/* .masonry-item { width: 100%; } */

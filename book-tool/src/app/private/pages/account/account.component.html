@@ -1,0 +1,105 @@
+<div class="card my-2 animate__animated animate__fadeIn">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-9">
+                <h3>Mi cuenta</h3>
+            </div>
+            
+            <hr class="my-3">
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Avatar</h5>
+                <div appNgDropFiles 
+                [ngClass]="{'file-over':isOverDrop}"
+                [files]="files"
+                (mouseOver)="isOverDrop = $event" 
+                (droped)="isDropped = $event">
+                    <img *ngIf="!editUser" width="250" height="250" src="{{ user.photoURL | image}}" class="img-fluid img-thumbnail" alt="...">
+                    <img *ngIf="editUser && !isDropped"  
+                        width="250" 
+                        height="250" 
+                        src="{{ user.photoURL | image}}" 
+                        class="img-fluid img-thumbnail drop-zone"  
+                        alt="{{ user.displayName }}">
+                        <!-- drop correct image -->
+                        <img *ngIf="isDropped && editUser && files.length > 0" width="250" height="250" class="img-fluid px-2 py-2" src="assets/img/generals/file-success.png" alt="">
+                        <!-- drop incorrect image -->
+                        <img *ngIf="isDropped && files.length === 0 && editUser" width="250" height="250" class="img-fluid px-2 py-2" src="assets/img/generals/file-error.png" alt="">
+                        <p *ngIf="isDropped && files.length === 0 && editUser" class="text-danger"><small>Imagen no válida, favor de validar el peso de la imagen.</small></p>
+                    <p *ngIf="editUser && !isDropped" class="text-muted"><small>Máximo 600x600px 150kb's</small></p>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <!-- No edit -->
+                <div *ngIf="!editUser" class="row">
+                    <div class="col-md-4">
+                        <h5>e-mail</h5>
+                        <p>{{ user.email }}</p>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <h5>Nombre de usuario</h5>
+                        <p>{{ user.displayName }}</p>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h5>Plan</h5>
+                        <p>{{ user.accountType | typeUser }}</p>
+        
+                        <h5>Válida hasta</h5>
+                        <p>{{ user.endDate | date }}</p>
+                    </div>
+                </div>
+
+                <!-- Edit -->
+                <div *ngIf="editUser" [formGroup]="myAccountForm" class="row">
+
+                    <div class="col-md-4">
+                        <h5>e-mail</h5>
+                        <input class="form-control no-allowed" id="disabledInput" type="text" placeholder="{{ user.email }}" disabled>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <h5>Nombre de usuario</h5>
+                        <!-- <p>{{ user.displayName }}</p> -->
+
+                        <input class="form-control" id="exampleInputEmail1" formControlName="displayName">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h5>Plan</h5>
+
+                        <p>{{ user.accountType | typeUser }}</p>
+        
+                        <h5>Válida hasta</h5>
+                        <p>{{ user.endDate | date }}</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <button *ngIf="!editUser" (click)="fillForm()" class="btn bg-bp-green text-white rounded-0 ms-2">Editar</button>
+                        <button *ngIf="editUser" (click)="updateUser()" class="btn bg-bp-green text-white rounded-0">Guardar</button>
+                        <button *ngIf="editUser" (click)="cancelEdit()" class="btn bg-orange text-white rounded-0 ms-2">Cancelar</button>
+                    </div>
+                </div>
+
+                <div *ngIf="editUser" class="row">
+                    <div class="col-md-6 my-3">
+                        <div class="alert alert-primary" role="alert">
+                            Arrastra y deja caer la imagen encima de tu avatar actual, al guardar el registro se actualizará el avatar.
+                          </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

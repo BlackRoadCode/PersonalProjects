@@ -1,0 +1,135 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="row mt-5">
+        <div class="col">
+            <h1>Bienvenido a tu dashboard</h1>
+            <hr>
+            <p>Desde aquí puedes administrar el contenido de tus obras, añadir hojas de personajes, darle seguimiento a
+                la línea de tiempo de tu historia, añadir notas y muchísimo más</p>
+            <h3>Puedes empezar creando cualquiera de los siguientes elementos:</h3>
+        </div>
+    </div>
+
+    <div class="row justify-content-evenly animate__animated animate__fadeIn mb-3">
+        <!-- Grid cards -->
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-book"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Obras</h5>
+                        <p class="card-text text-center">Inicia tu primer obra y cuéntale al mundo entero tu increíble historia.</p>
+
+                        <div *ngIf="numWorksCreated < '1'" class="text-center"><button routerLink="../editor" class="btn bg-orange text-white">Crear mi primer Obra +</button></div>
+                        <div *ngIf="numWorks === '1'" class="text-center"><button class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../editor"><small>Tienes {{ numWorksCreated }} obra creada de {{numWorks}} disponible</small> ></button></div> 
+                        <div *ngIf="numWorks > '1'" class="text-center"><button class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../editor"><small>Tienes {{ numWorksCreated }} obra(s) creada(s) de {{numWorks}} disponibles</small> ></button></div> 
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-person"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Personaje</h5>
+                        <p class="card-text text-center">Crea personajes memorables.</p>
+                        <div *ngIf="numCharactersCreated < '1'" class="text-center"><button routerLink="../characters" class="btn bg-bp-green text-white rounded-0 px-4">Crear mi primer Personaje</button></div>
+                        <div *ngIf="numCharactersCreated === '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../characters"><small>Tienes {{ numCharactersCreated }} personaje creado de {{ numCharacters }} disponibles</small> ></a></div>
+                        <div *ngIf="numCharactersCreated > '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../characters"><small>Tienes {{ numCharactersCreated }} personajes creados de {{ numCharacters }} disponibles</small> ></a></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-stickies"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Notas</h5>
+                        <p class="card-text text-center">Que no se te olvide nada, añade una nota, un pensamiento, un dato o
+                            cualquier cosa que no quieras olvidar para integrar en tu obra.</p>
+                        <div *ngIf="numNotesCreated < '1'" class="text-center"><button routerLink="../notes" class="btn bg-bp-green text-white rounded-0 px-4">Crear mi primer nota</button></div>
+                        <div *ngIf="numNotesCreated === '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../notes"><small>Tienes {{ numNotesCreated }} nota creada de {{ numNotes }} disponibles</small> ></a></div>
+                        <div *ngIf="numNotesCreated > '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../notes"><small>Tienes {{ numNotesCreated }} notas creadas de {{ numNotes }} disponibles</small> ></a></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-card-checklist"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Fuentes</h5>
+                        <p class="card-text text-center">Todas las fuentes consultadas para respaldar tu obra, honor a quien honor
+                            merece.</p>
+                        <div *ngIf="numSourcesCreated < '1'" class="text-center"><button routerLink="../sources" class="btn bg-bp-green text-white rounded-0 px-4">Crear mi primer fuente</button></div>
+                        <div *ngIf="numSourcesCreated === '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../sources"><small>Tienes {{ numSourcesCreated }} fuente creada</small> ></a></div>
+                        <div *ngIf="numSourcesCreated > '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../sources"><small>Tienes {{ numSourcesCreated }} fuentes creadas</small> ></a></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-clipboard"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Lista de tareas</h5>
+                        <p class="card-text text-center">Una lista de tareas por hacer, dale seguimiento a todos esos pendientes y
+                            no olvides ninguno.</p> 
+                            <div *ngIf="numTasksListsCreated < '1'" class="text-center"><button routerLink="../tasks" class="btn bg-bp-green text-white rounded-0 px-4">Crear mi primer lista de tareas</button></div>
+                            <div *ngIf="numTasksListsCreated === '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../tasks"><small>Tienes {{ numTasksListsCreated }} lista creada de {{ numTaskLists }} disponibles</small> ></a></div>
+                            <div *ngIf="numTasksListsCreated > '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../tasks"><small>Tienes {{ numTasksListsCreated }} listas creadas de {{ numTaskLists }} disponibles</small> ></a></div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-lightbulb"></i></p> 
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Inspiración</h5>
+                        <p class="card-text text-center">Similar a las notas. Ingresa aquí cualquier cosa que te haya inspirado y no pierdas ni uno solo de esos elementos, recuerda que un escritor solo puede escribir de lo que conoce.</p>
+                        <div *ngIf="numInspirationsCreated < '1'" class="text-center"><button routerLink="../inspiration" class="btn bg-bp-green text-white rounded-0 px-4">Crear mi primer inspiración</button></div>
+                        <div *ngIf="numInspirationsCreated === '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../inspiration"><small>Tienes {{ numInspirationsCreated }} inspiración creada de {{ numInspiations }} disponibles</small> ></a></div>
+                        <div *ngIf="numInspirationsCreated > '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../inspiration"><small>Tienes {{ numInspirationsCreated }} inspiraciones creadas de {{ numInspiations }} disponibles</small> ></a></div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-calendar4-range"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">Línea de tiempo</h5>
+                        <p class="card-text text-center">Crea una línea de tiempo para mantener el control de los eventos y no caigas en fallos de anacronía.</p>
+                        <div *ngIf="numTimelinesCreated < '1'" class="text-center"><button routerLink="../time-line" class="btn bg-bp-green text-white rounded-0 px-4">Crear mi primer línea de tiempo</button></div>
+                        <div *ngIf="numTimelinesCreated === '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../time-line"><small>Tienes {{ numTimelinesCreated }} línea de tiempo creada de {{ numTimelines }} disponible</small> ></a></div>
+                        <div *ngIf="numTimelinesCreated > '1'" class="text-center"><a class="btn bg-orange text-white text-decoration-none rounded-0" routerLink="../time-line"><small>Tienes {{ numTimelinesCreated }} líneas de tiempo creadas de {{ numTimelines }} disponibles</small> ></a></div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="shadow-sm card h-100 rounded-0">
+                    <p class="text-center bg-light-gray text-bp-green py-2 fs-1 mb-0"><i class="bi bi-question-diamond"></i></p>
+                    <div class="card-body bg-light-gray">
+                        <h5 class="card-title text-center">¿Te falta algún elemento?</h5>
+                        <p class="card-text text-center">Por favor envíanos un mensaje en el que nos cuentes qué elemento te falta para tener control total de tu obra. Nos tomamos muy en serio las necesidades de nuestros usuarios.</p>
+                        <div class="text-center"><button routerLink="../contact" class="btn bg-orange text-white text-decoration-none rounded-0 px-4">Contáctanos</button></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- End Grid cards -->
+    </div>
+</div>

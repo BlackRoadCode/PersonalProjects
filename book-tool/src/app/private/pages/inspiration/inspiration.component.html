@@ -1,0 +1,190 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+
+  <div class="mt-5 mb-3 animate__animated animate__fadeIn">
+
+    <!-- <div class="card-body"> -->
+      <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 mt-4"> 
+          <h3>Inspiraciones</h3>
+          <h3><small class="text-muted">Crea y administra tu registro de inspiraciones.</small></h3>
+          <hr class="hr-elements bg-secondary mt-0">
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 text-lg-end text-md-end text-center my-3 m-md-0">
+          <div class="">
+            <button (click)="newTextFlag = true; newImageFlag = false" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Registro de Texto <i class="bi bi-plus"></i></button>
+            <button (click)="newImageFlag = true; newTextFlag = false; resetForm()" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Registro de Imagen <i class="bi bi-plus"></i></button>
+
+            <button (click)="setInspirationView('c')" class="btn btn-outline-info me-2"><i class="bi bi-grid"></i></button>
+            <button (click)="setInspirationView('l')" class="btn btn-outline-info"><i class="bi bi-list"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+            <p class="fs-5">Todo aquello que te inspira debe de tener un lugar cerca de tu obra, no pierdas esos momentos e ideas que harán de tu trabajo algo magnífico.</p>
+        </div>
+    </div>
+      
+    <!-- </div> -->
+  </div>
+
+  <!-- Form text inspiration -->
+  <div *ngIf="newTextFlag && !newImageFlag" class="card mt-5 mb-3 animate__animated animate__fadeIn">
+    <div class="card-body">
+      <form class="animate__animated animate__fadeIn" [formGroup]="inspirationForm">
+        <div class="row">
+        <div class="mb-3 col-5">
+          <label for="characterName" class="form-label">Título</label>
+          <input type="text" class="form-control" formControlName="title">
+        </div>
+
+        <div class="mb-3 col-5">
+          <label for="characterName" class="form-label">Nota</label>
+          <textarea class="form-control" rows="2" formControlName="inspirationDetails"></textarea>
+        </div>
+
+        <div class="mb-3 col-2">
+          <button *ngIf="!editFlag" (click)="saveInspiration()" class="btn bg-bp-green text-white rounded-0 mt-3 mx-3" >Guardar</button>
+          <button *ngIf="editFlag" (click)="editInspiration(inspiration)" class="btn bg-bp-green text-white rounded-0 mt-3 mx-3" >Guardar</button>
+          <button (click)="cancelNewInspiration()" class="btn bg-orange text-white rounded-0 m-3">Cancelar</button>
+        </div>
+      </div>
+      
+    </form>
+    </div>
+  </div>
+
+  <!-- Form image inspiration -->
+  <div *ngIf="!newTextFlag && newImageFlag" class="mt-5 mb-3 animate__animated animate__fadeIn">
+    <div class="card-body">
+
+      <form class="animate__animated animate__fadeIn" [formGroup]="inspirationImageForm">
+        <div class="row">
+          <div 
+          class="mb-3 col-lg-2 col-md-2 col-12"
+          appNgDropFiles 
+            [ngClass]="{'file-over':isOverDrop}"
+            [files]="files"
+            (mouseOver)="isOverDrop = $event" 
+            (droped)="isDropped = $event"
+          >
+            <img 
+            *ngIf="!editFlag && !isDropped && files.length === 0"
+            src="assets/img/generals/save-image-placeholderb.jpg" 
+            class="img-fluid img-thumbnail drop-zone"
+            alt="">
+            
+            <img 
+            *ngIf="editFlag && !isDropped && inspiration.inspirationImage !== ''"
+            src="{{inspiration.inspirationImage}}" 
+            class="img-fluid img-thumbnail drop-zone"
+            alt="">
+
+            <!-- Imagen correcta dropeada -->
+            <img *ngIf="isDropped && files.length > 0" class="img-fluid" src="assets/img/generals/file-success.png" alt="">
+            
+            <!-- imagen incorrecta dropeada -->
+            <img *ngIf="isDropped && files.length === 0" class="img-fluid" src="assets/img/generals/file-error.png" alt="">
+            <p *ngIf="isDropped && files.length === 0" class="text-danger"><small>Imagen no válida, favor de validar el peso de la imagen.</small></p>
+
+            <p *ngIf="!isDropped" class="text-muted"><small>Máximo 600x600px 150kb's</small></p>
+          </div>
+          <div class="mb-3 col-8">
+            <div class="row">
+              <div class="mb-3 col-12">
+                <label for="characterName" class="form-label">Describe tu inspiración <small class="text-muted">Opcional</small></label>
+                <textarea class="form-control" rows="2" formControlName="imageText"></textarea>
+              </div>
+
+              <div class="mb-3 col-12">
+                <a *ngIf="!editFlag" (click)="saveImageInspiration()" class="btn bg-bp-green text-white rounded-0">Guardar</a>
+                <a *ngIf="editFlag" (click)="editInspirationImage(inspiration)" class="btn bg-bp-green text-white rounded-0">Guardar</a>
+                <button (click)="cancelNewInspiration()" class="btn bg-orange text-white rounded-0 m-3">Cancelar</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+ 
+  <!-- View Card -->
+  <div *ngIf="viewCard && numberInspirationsCreated > 0 && !newImageFlag" class="mb-3 animate__animated animate__fadeIn">
+    <!-- <div class="card-body"> -->
+      <div class="row">
+        
+        <div *ngFor="let inspiration of inspirations" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 my-2">
+          
+          <div class="card h-100 rounded-0 shadow-sm">
+            
+            <div class="card-header"><h5 class="card-title text-capitalize">{{ inspiration.title }}</h5></div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <img  width="150" height="auto" *ngIf="inspiration.inspirationImage !== ''" src="{{ inspiration.inspirationImage }}" alt="{{ inspiration.title }}">
+                </div>
+              </div>
+              
+              <div class="row mt-3">
+                <div class="col">
+                  <p class="card-text">{{ inspiration.text }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-end">
+                <!-- edit text record -->
+                <button *ngIf="inspiration.type === 'text'" (click)="loadInspiration( inspiration )" class="my-2 btn bg-bp-green text-white rounded-0 btn-sm"><i class="bi bi-pencil"></i></button>
+                <!-- edit image record -->
+                <button *ngIf="inspiration.type !== 'text'" (click)="loadInspiration( inspiration )" class="my-2 btn bg-bp-green text-white rounded-0 btn-sm"><i class="bi bi-pencil"></i></button>
+                <button (click)="deleteInspiration( inspiration )" class="my-2 mx-2 btn bg-orange text-white btn-sm"><i class="bi bi-trash"></i></button>
+              </div> 
+            </div>
+  
+  
+            <div class="card-footer text-muted">
+              <small class="text-muted">Creada el: {{ inspiration.creationDate }}</small>
+            </div>
+  
+          </div>
+
+        </div>
+  
+      </div>
+    <!-- </div> -->
+  </div>
+  
+  <!-- View List -->
+  <div *ngIf="viewList && numberInspirationsCreated > 0" class="card mb-3 animate__animated animate__fadeIn">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de creación</th>
+                    <th>Editar</th>
+                    <th>Borrar</th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let inspiration of inspirations">
+
+                    <td *ngIf="inspiration.inspirationImage === ''"> <h5 class="card-title text-capitalize">{{ inspiration.title }}</h5> </td>
+                    <td *ngIf="inspiration.inspirationImage !== ''"> <img  width="50" height="auto" src="{{ inspiration.inspirationImage }}" alt="{{ inspiration.title }}"> </td>
+
+                    <td>{{ inspiration.creationDate }}</td>
+                    <td><button (click)="loadInspiration( inspiration )" class="btn bg-bp-green text-white rounded-0 btn-sm"><i class="bi bi-pencil"></i></button></td>
+                    <td><button (click)="deleteInspiration( inspiration )" class="btn bg-orange text-white rounded-0 btn-sm"><i class="bi bi-x-circle"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+  
+  <div *ngIf="numberInspirationsCreated === 0" class="my-2 animate__animated animate__fadeIn">
+    <p class="fs-1 px-3 py-3 text-center">Todavía no tienes inspiraciones disponibles ¡Crea tu primer registro de inspiración!</p>
+  </div>
+</div>
+

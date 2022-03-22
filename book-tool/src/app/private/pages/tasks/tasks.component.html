@@ -1,0 +1,137 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="my-5 mb-3 animate__animated animate__fadeIn">
+        <!-- <div class="card-body"> -->
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mt-4">
+                  <h3>Tareas</h3>
+                  <h3><small class="text-muted">y listas de pendientes.</small></h3>
+                  <hr class="hr-elements bg-secondary mt-0">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-lg-end text-md-end text-center my-3 m-md-0">
+                  <div class="">
+                      <button *ngIf="numberTasksCreated < numberTasks" routerLink="new" class="btn bg-orange text-white text-decoration-none rounded-0 me-2">Nueva Lista <i class="bi bi-plus"></i></button>
+                      <button *ngIf="numberTasks === numberTasksCreated || numberTasks < numberTasksCreated" (click)="getPremium()" class="btn bg-orange text-white text-decoration-none rounded-0 me-2"><i class="bi bi-lock"></i> Nueva Lista</button>                    
+                    
+                      <button (click)="setTasksView('c')" class="btn btn-outline-info me-2"><i class="bi bi-grid"></i></button>
+                      <button (click)="setTasksView('l')" class="btn btn-outline-info"><i class="bi bi-list"></i></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                    <p class="fs-5">Separar las actividades en tareas ayuda a ser más productivo y óptimo, aquí puedes crear listas de tareas y marcarlas como terminadas para mantener un seguimiento de tus pendientes.</p>
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+    
+    <div *ngIf="msgPremiumAccount" class="alert alert-success" role="alert">
+        Tu periodo premium ha terminado pero no te preocupes <strong>ninguno de tus datos ha sido borrado*</strong>, puedes renovar en un plan más económico para tener acceso a las características propias del plan. también puedes <a [routerLink]="['/private', 'dashboard', 'contact']" class="alert-link">contactarnos</a> para revisar tus necesidades de forma personalizada.
+        <br><small class="text-muted">*Tus datos se almacenan durante 3 meses, si no renuevas tu plan o tu cuenta no tiene actividad serán eliminados.</small>
+      </div>
+    
+    <!-- View Cards -->
+    <div *ngIf="viewCard && numberTasks > 0" class="mb-3 animate__animated animate__fadeIn">
+        <div class="card-body">
+            <div class="row">
+    
+                <div *ngFor="let list of taskList; let i = index" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-2">
+                    <ul class="list-group shadow-sm" cdkDropList (cdkDropListDropped)="drop($event, list)">
+                        <li class="list-group-item bg-info text-white rounded-0" aria-current="true">
+                            <div class="row">
+                                <div class="col-10 fw-bold">{{ list['tltitle'] }}</div>
+                                <div class="col-2 text-end"><span class="badge bg-orange">{{ list['tasks'].length }}</span></div>
+                            </div>
+                        </li>
+                        <li *ngFor="let task of list['tasks']; let i = index" class="list-group-item box" cdkDrag>
+                            <div class="row">
+                                <div class="col-1"><i class="bi bi-three-dots-vertical drag-cursor"></i></div>
+                                <div class="col-1">
+                                    <!-- <input class="form-check-input me-1 text-decoration-line-through" type="checkbox" value="" name="checkA"> -->
+                                    <input (change)="updateTaskStatus(list, task)" class="form-check-input me-1 text-decoration-line-through" type="checkbox" *ngIf="!task.status" >
+                                    <input (change)="updateTaskStatus(list, task)" class="form-check-input me-1 text-decoration-line-through" type="checkbox" *ngIf="task.status" checked>
+                                </div>
+                                <div class="col-5" [ngClass]="{'text-decoration-line-through':task.status}">{{task.description}}</div>
+                                <div *ngIf="!task.status" class="col-4 text-muted"><small class="micro-text">Creada el: {{ task.creationDate | date :'d/M/yy' }}</small></div>
+                                <div *ngIf="task.status" class="col-4 text-muted"><small class="micro-text">Cerrada el: {{ task.endDate | date :'d/M/yy' }}</small></div>
+                                <div class="col-1"><small class="c-pointer"><a class="text-decoration-none" (click)="deleteTaskFromHub(list, i)"><i class="bi bi-trash"></i></a></small></div>
+                            </div>
+                        </li>
+    
+                        <li class="list-group-item bg-light" aria-current="true">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button (click)="deleteList( taskList[i]['lid'] )" class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i>&nbsp;<small>Eliminar Lista</small></button>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button [routerLink]="taskList[i]['lid']" class="btn btn-sm btn-outline-primary me-1"><small>Añadir tareas</small>&nbsp;<i class="bi bi-pencil"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    
+    <!-- View Lists -->
+    <div *ngIf="viewList && numberTasks > 0" class="mb-3 animate__animated animate__fadeIn">
+        <div class="card-body">
+    
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th><h6 class="mt-1">Número de tareas</h6></th>
+                        <th><h6 class="mt-1">Nombre de la lista</h6></th>
+                        <th><h6 class="d-none d-md-block mt-1">Fecha de creación</h6></th>
+                        <th><h6 class="d-none d-md-block mt-1">Editar</h6></th>
+                        <th><h6 class="d-none d-md-block mt-1">Borrar</h6></th>
+                      </tr>
+                </thead>
+            </table>
+    
+            <div class="accordion">
+                <div *ngFor="let list of taskList; let i = index" class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false" attr.data-bs-target="#e{{i}}">
+                            <div class="col-1">{{ list['tasks'].length }}</div>
+                            <div class="col-5">{{ list['tltitle'] }}</div>
+                            <div class="col-2 d-none d-md-block">{{ list['tasks'][0].creationDate }}</div>
+                            <div class="col-2 text-end"><button [routerLink]="taskList[i]['lid']" class="btn btn-sm bg-bp-green text-white rounded-0"><i class="bi bi-pencil"></i></button></div>
+                            <div class="col-1 text-end"><button (click)="deleteList( taskList[i]['lid'] )" class="btn btn-sm bg-orange text-white rounded-0"><i class="bi bi-x-circle"></i></button></div>
+                    </button>
+                  </h2>
+            
+                  
+            
+                  <div id="e{{i}}" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <ul class="list-group" cdkDropList (cdkDropListDropped)="drop($event, list)">
+                            <li *ngFor="let task of list['tasks']; let i = index" class="list-group-item box" cdkDrag>
+                                <div class="row">
+                                    <div class="col-1"><i class="bi bi-three-dots-vertical"></i></div>
+                                    <div class="col-1">
+                                        <input (change)="updateTaskStatus(list, task)" class="form-check-input me-1 text-decoration-line-through" type="checkbox" *ngIf="!task.status" >
+                                        <input (change)="updateTaskStatus(list, task)" class="form-check-input me-1 text-decoration-line-through" type="checkbox" *ngIf="task.status" checked>
+                                    </div>
+                                    <div class="col-5" [ngClass]="{'text-decoration-line-through':task.status}">{{task.description}}</div>
+                                    <div class="col-4 text-muted"><small class="micro-text">Creada el: {{ task.creationDate | date :'d/M/yy' }}</small></div>
+                                    <div class="col-1"><small class="micro-text"><a class="text-decoration-none" (click)="deleteTaskFromHub(i)"><i class="bi bi-trash"></i></a></small></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div *ngIf="numberTasks === 0" class="my-2 animate__animated animate__fadeIn">
+        <p class="fs-1 px-3 py-3 text-center">Todavía no tienes tareas disponibles ¡Crea tu primer lista de tareas!</p>
+    </div>
+</div>
+
