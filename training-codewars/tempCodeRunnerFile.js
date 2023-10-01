@@ -1,1 +1,0 @@
-console.logqueueTime(([1,2,3,4,5], 100)); //  5);
