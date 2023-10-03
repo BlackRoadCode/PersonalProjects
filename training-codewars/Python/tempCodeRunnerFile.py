@@ -1,4 +1,2 @@
-for i in range( len(s) + 1):
-    #     for n in range( i ):
-    #         if ( n == 0 ):
-    #             print(s[n])
+def ghostbusters(building):
+    return ''.join(arr_w_ghosts) if len(building.split(' ')) > 1 else "You just wanted my autograph didn't you?"
