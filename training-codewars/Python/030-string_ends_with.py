@@ -12,3 +12,8 @@ def solution(text, ending):
 
 print(solution('abc', 'bc'))
 print(solution('abc', 'd'))
+
+"""
+def solution(string, ending):
+    return string.endswith(ending)
+"""
